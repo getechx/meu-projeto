@@ -1,1 +1,37 @@
+/* Estilos para o menu principal */
+.menu-principal {
+    background-color: #333; /* Cor de fundo do menu */
+    padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
+    text-align: center;   /* Centraliza os itens do menu */
+    margin-bottom: 20px;  /* Adiciona uma margem abaixo do menu */
+}
 
+.menu-principal ul {
+    list-style-type: none; /* Remove os marcadores da lista */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;      /* Garante que o fundo cubra os itens flutuantes, se houver */
+}
+
+.menu-principal li {
+    display: inline;       /* Faz os itens da lista ficarem na mesma linha */
+}
+
+.menu-principal li a {
+    display: inline-block; /* Permite adicionar padding e tratar como bloco */
+    color: white;          /* Cor do texto do link */
+    text-align: center;
+    padding: 14px 16px;    /* Espaçamento interno dos links */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-weight: bold;
+}
+
+.menu-principal li a:hover {
+    background-color: #111; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o link da página ativa (opcional, mas bom para UX) */
+.menu-principal li a.active {
+    background-color: #0366d6; /* Cor azul do GitHub, ou outra de sua preferência */
+    color: white;
+}
