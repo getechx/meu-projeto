@@ -1,0 +1,414 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Registro TS Avançado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .dynamic-field-group, .simple-dynamic-field-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; 
+            margin-bottom: 0.75rem; 
+        }
+        .dynamic-field-group select,
+        .dynamic-field-group input,
+        .simple-dynamic-field-group input {
+            border-color: #D1D5DB; 
+            border-radius: 0.375rem; 
+            padding: 0.5rem 0.75rem; 
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
+            font-size: 0.875rem; 
+        }
+        .dynamic-field-group select {
+            flex-shrink: 0; 
+        }
+        .dynamic-field-group input,
+        .simple-dynamic-field-group input {
+            flex-grow: 1; 
+        }
+        .dynamic-field-group button,
+        .simple-dynamic-field-group button {
+            flex-shrink: 0;
+        }
+        .add-more-button {
+             margin-left: 0.5rem;
+             padding: 0.25rem 0.5rem;
+             font-size: 0.75rem; /* text-xs */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-xl">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-700">Formulário de Registro Detalhado</h1>
+
+        <form id="registroFormAvancado">
+            <div class="mb-4">
+                <label for="nome_ts" class="block text-sm font-medium text-gray-700 mb-1">Seu nome no TS:</label>
+                <input type="text" id="nome_ts" name="nome_ts" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Digite seu nome no TS">
+            </div>
+
+            <div class="mb-4">
+                <label for="main_char" class="block text-sm font-medium text-gray-700 mb-1">Main Char:</label>
+                <input type="text" id="main_char" name="main_char" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Nome do seu personagem principal">
+            </div>
+
+            <div class="mb-4">
+                <label for="maker_jadebra" class="block text-sm font-medium text-gray-700 mb-1">Maker Jadebra:</label>
+                <input type="text" id="maker_jadebra" name="maker_jadebra"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Nome do Maker Jadebra (será 'J')">
+            </div>
+
+            <div class="mb-4 border border-gray-200 p-3 rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Maker ou Bomba em Jadebra:</label> 
+                <div id="dynamic_fields_container_maker_bomba">
+                    </div>
+                <button type="button" id="add_dynamic_field_maker_bomba_button"
+                        class="mt-2 text-sm text-indigo-600 hover:text-indigo-800 font-medium py-1 px-2 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">
+                    + Adicionar Maker/Bomba
+                </button>
+            </div>
+
+            <div class="mb-1">
+                <label for="rasteibra_1" class="block text-sm font-medium text-gray-700 mb-1">Rasteibra (Opcional):</label>
+            </div>
+            <div id="rasteibra_fields_container">
+                <div class="simple-dynamic-field-group" id="rasteibra_group_1">
+                    <input type="text" id="rasteibra_1" name="rasteibra[]"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="Maker/Bomba">
+                    <button type="button" id="add_rasteibra_button"
+                            class="add-more-button text-indigo-600 hover:text-indigo-800 font-medium py-1 px-2 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">
+                        +
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-1 mt-4">
+                <label for="ourobra_1" class="block text-sm font-medium text-gray-700 mb-1">Ourobra (Opcional):</label>
+            </div>
+            <div id="ourobra_fields_container">
+                <div class="simple-dynamic-field-group" id="ourobra_group_1">
+                    <input type="text" id="ourobra_1" name="ourobra[]"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="Maker/Bomba">
+                    <button type="button" id="add_ourobra_button"
+                            class="add-more-button text-indigo-600 hover:text-indigo-800 font-medium py-1 px-2 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">
+                        +
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mb-1 mt-4">
+                <label for="cantabra_1" class="block text-sm font-medium text-gray-700 mb-1">Cantabra (Opcional):</label>
+            </div>
+            <div id="cantabra_fields_container">
+                <div class="simple-dynamic-field-group" id="cantabra_group_1">
+                    <input type="text" id="cantabra_1" name="cantabra[]"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="Maker/Bomba">
+                    <button type="button" id="add_cantabra_button"
+                            class="add-more-button text-indigo-600 hover:text-indigo-800 font-medium py-1 px-2 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors">
+                        +
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="mb-4 mt-4">
+                <label for="quem_registra_select" class="block text-sm font-medium text-gray-700 mb-1">Quem vai registrar:</label>
+                <select id="quem_registra_select" name="quem_registra_select" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="" disabled selected>Selecione quem vai registrar</option>
+                    <option value="Maru">Maru</option>
+                    <option value="Garotao">Garotao</option>
+                    <option value="Rmk">Rmk</option>
+                    <option value="Shot">Shot</option>
+                    <option value="Alytreta">Alytreta</option>
+                    <option value="Capitão">Capitão</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+             <div class="mb-4 hidden" id="outro_registrador_container">
+                <label for="outro_registrador_input" class="block text-sm font-medium text-gray-700 mb-1">Especifique o nome (Outro):</label>
+                <input type="text" id="outro_registrador_input" name="outro_registrador_input"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Nome de quem vai registrar">
+            </div>
+
+            <div class="mt-6">
+                <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Gerar Descrição
+                </button>
+            </div>
+        </form>
+
+        <div id="output_container" class="mt-6 hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Descrição Gerada:</label>
+            <div class="flex items-center">
+                <input type="text" id="generated_description" readonly
+                       class="w-full px-3 py-2 border border-gray-300 rounded-l-md bg-gray-50 focus:outline-none sm:text-sm">
+                <button type="button" id="copy_button"
+                        class="px-4 py-2 border border-l-0 border-indigo-600 text-sm font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Copiar
+                </button>
+            </div>
+            <p id="copy_feedback" class="text-xs text-green-600 mt-1 hidden">Copiado!</p>
+        </div>
+         <div id="form_error_message" class="mt-4 p-3 rounded-md text-sm hidden bg-red-100 text-red-700"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registroFormAvancado');
+        const dynamicFieldsContainerMakerBomba = document.getElementById('dynamic_fields_container_maker_bomba');
+        const addDynamicFieldMakerBombaButton = document.getElementById('add_dynamic_field_maker_bomba_button');
+        
+        const rasteibraFieldsContainer = document.getElementById('rasteibra_fields_container');
+        const addRasteibraButton = document.getElementById('add_rasteibra_button');
+        let rasteibraFieldCounter = 1;
+
+        const ourobraFieldsContainer = document.getElementById('ourobra_fields_container');
+        const addOurobraButton = document.getElementById('add_ourobra_button');
+        let ourobraFieldCounter = 1;
+
+        const cantabraFieldsContainer = document.getElementById('cantabra_fields_container'); 
+        const addCantabraButton = document.getElementById('add_cantabra_button'); 
+        let cantabraFieldCounter = 1; 
+        
+        const outputContainer = document.getElementById('output_container');
+        const generatedDescriptionInput = document.getElementById('generated_description');
+        const copyButton = document.getElementById('copy_button');
+        const copyFeedback = document.getElementById('copy_feedback');
+        const formErrorMessage = document.getElementById('form_error_message');
+        const quemRegistraSelect = document.getElementById('quem_registra_select');
+        const outroRegistradorContainer = document.getElementById('outro_registrador_container');
+        const outroRegistradorInput = document.getElementById('outro_registrador_input');
+
+        let dynamicMakerBombaFieldCounter = 0;
+
+        // Event listener para mostrar/ocultar campo "Outro" para registrador
+        quemRegistraSelect.addEventListener('change', function() {
+            if (this.value === 'Outro') {
+                outroRegistradorContainer.classList.remove('hidden');
+                outroRegistradorInput.required = true; // Torna obrigatório se "Outro" for selecionado
+            } else {
+                outroRegistradorContainer.classList.add('hidden');
+                outroRegistradorInput.required = false; // Não é obrigatório caso contrário
+                outroRegistradorInput.value = ''; // Limpa o campo se não for "Outro"
+            }
+        });
+
+        // Event listener para adicionar campos dinâmicos de Maker/Bomba
+        addDynamicFieldMakerBombaButton.addEventListener('click', function() {
+            dynamicMakerBombaFieldCounter++;
+            const newFieldGroupDiv = document.createElement('div');
+            newFieldGroupDiv.classList.add('dynamic-field-group');
+            newFieldGroupDiv.innerHTML = `
+                <select name="dynamic_type_${dynamicMakerBombaFieldCounter}" class="focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="Maker">Maker</option> 
+                    <option value="Bomba">Bomba</option>
+                </select>
+                <input type="text" name="dynamic_value_${dynamicMakerBombaFieldCounter}"
+                       class="focus:ring-indigo-500 focus:border-indigo-500"
+                       placeholder=""> <button type="button" 
+                        class="remove-dynamic-field bg-red-500 hover:bg-red-600 text-white text-xs py-1 px-2 rounded-md transition-colors">
+                    Remover
+                </button>
+            `;
+            dynamicFieldsContainerMakerBomba.appendChild(newFieldGroupDiv);
+            // Adiciona event listener para o botão de remover do novo campo
+            newFieldGroupDiv.querySelector('.remove-dynamic-field').addEventListener('click', function() {
+                newFieldGroupDiv.remove();
+            });
+        });
+
+        // Função genérica para adicionar campos simples dinâmicos (Rasteibra, Ourobra, Cantabra)
+        function addSimpleDynamicField(container, baseName, counter) {
+            const newFieldGroupDiv = document.createElement('div');
+            newFieldGroupDiv.classList.add('simple-dynamic-field-group');
+            newFieldGroupDiv.id = `${baseName}_group_${counter}`; // ID para referência se necessário
+            newFieldGroupDiv.innerHTML = `
+                <input type="text" name="${baseName}[]"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                       placeholder="Maker/Bomba"> 
+                <button type="button" 
+                        class="remove-simple-dynamic-field bg-red-500 hover:bg-red-600 text-white text-xs py-1 px-2 rounded-md transition-colors">
+                    -
+                </button>
+            `;
+            container.appendChild(newFieldGroupDiv);
+            // Adiciona event listener para o botão de remover do novo campo
+            newFieldGroupDiv.querySelector('.remove-simple-dynamic-field').addEventListener('click', function() {
+                newFieldGroupDiv.remove();
+            });
+        }
+
+        // Event listeners para os botões de adicionar Rasteibra, Ourobra e Cantabra
+        addRasteibraButton.addEventListener('click', function() {
+            rasteibraFieldCounter++;
+            addSimpleDynamicField(rasteibraFieldsContainer, 'rasteibra', rasteibraFieldCounter);
+        });
+        
+        addOurobraButton.addEventListener('click', function() {
+            ourobraFieldCounter++;
+            addSimpleDynamicField(ourobraFieldsContainer, 'ourobra', ourobraFieldCounter);
+        });
+
+        addCantabraButton.addEventListener('click', function() { 
+            cantabraFieldCounter++;
+            addSimpleDynamicField(cantabraFieldsContainer, 'cantabra', cantabraFieldCounter);
+        });
+
+
+        // Event listener para o envio do formulário
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            hideFormError(); // Esconde mensagens de erro anteriores
+
+            // Coleta dos valores dos campos
+            const nomeTS = document.getElementById('nome_ts').value.trim();
+            const mainChar = document.getElementById('main_char').value.trim();
+            const makerJadebraValue = document.getElementById('maker_jadebra').value.trim();
+            
+            const rasteibraInputs = Array.from(document.querySelectorAll('input[name="rasteibra[]"]'))
+                                         .map(input => input.value.trim())
+                                         .filter(value => value); // Filtra valores vazios
+            const ourobraInputs = Array.from(document.querySelectorAll('input[name="ourobra[]"]'))
+                                       .map(input => input.value.trim())
+                                       .filter(value => value); // Filtra valores vazios
+            const cantabraInputs = Array.from(document.querySelectorAll('input[name="cantabra[]"]')) 
+                                       .map(input => input.value.trim())
+                                       .filter(value => value); // Filtra valores vazios
+
+
+            let quemRegistra = quemRegistraSelect.value;
+
+            // Validação dos campos obrigatórios
+            if (!nomeTS || !mainChar) { 
+                showFormError('Por favor, preencha os campos obrigatórios: Seu nome no TS e Main Char.');
+                return;
+            }
+             if (!quemRegistra) { // Valida se "Quem vai registrar" foi selecionado
+                showFormError('Por favor, selecione quem vai registrar.');
+                return;
+            }
+            
+            // Validação específica se "Outro" for selecionado para quem registra
+            if (quemRegistra === 'Outro') {
+                const outroNome = outroRegistradorInput.value.trim();
+                if (!outroNome) {
+                    showFormError('Por favor, especifique o nome de quem vai registrar no campo "Outro".');
+                    return;
+                }
+                quemRegistra = outroNome; // Usa o valor do input se "Outro" for selecionado
+            }
+
+            // Montagem da string de descrição
+            let descriptionParts = [];
+            descriptionParts.push(`Nome: ${nomeTS}`);
+            descriptionParts.push(`Main: ${mainChar}`);
+
+            if (makerJadebraValue) { 
+                descriptionParts.push(`J: ${makerJadebraValue}`);
+            }
+            
+            let dynamicMakerValues = [];
+            let allBombaValues = [];
+
+            // Coleta dos campos dinâmicos de Maker/Bomba
+            const dynamicFieldGroupsMakerBomba = dynamicFieldsContainerMakerBomba.querySelectorAll('.dynamic-field-group');
+            dynamicFieldGroupsMakerBomba.forEach((group) => {
+                const typeSelect = group.querySelector('select[name^="dynamic_type_"]');
+                const valueInput = group.querySelector('input[name^="dynamic_value_"]');
+                const type = typeSelect.value;
+                const value = valueInput.value.trim();
+
+                if (value) { 
+                    if (type === 'Maker') {
+                        dynamicMakerValues.push(value);
+                    } else if (type === 'Bomba') {
+                        allBombaValues.push(value);
+                    }
+                }
+            });
+
+            if (dynamicMakerValues.length > 0) {
+                descriptionParts.push(`M: ${dynamicMakerValues.join(', ')}`);
+            }
+            
+            if (allBombaValues.length > 0) {
+                descriptionParts.push(`B: ${allBombaValues.join(', ')}`); // Alterado para B:
+            }
+
+            if (rasteibraInputs.length > 0) {
+                descriptionParts.push(`R: ${rasteibraInputs.join(', ')}`);
+            }
+            if (ourobraInputs.length > 0) {
+                descriptionParts.push(`O: ${ourobraInputs.join(', ')}`);
+            }
+            if (cantabraInputs.length > 0) { 
+                descriptionParts.push(`C: ${cantabraInputs.join(', ')}`);
+            }
+            descriptionParts.push(`Reg: ${quemRegistra}`);
+
+            // Exibe a descrição gerada
+            const finalDescription = descriptionParts.join(' | ');
+            generatedDescriptionInput.value = finalDescription;
+            outputContainer.classList.remove('hidden');
+            copyFeedback.classList.add('hidden'); // Garante que o feedback de cópia anterior seja limpo
+        });
+
+        // Event listener para o botão de copiar
+        copyButton.addEventListener('click', function() {
+            generatedDescriptionInput.select();
+            generatedDescriptionInput.setSelectionRange(0, 99999); // Para compatibilidade com dispositivos móveis
+            try {
+                var successful = document.execCommand('copy');
+                if (successful) {
+                    copyFeedback.textContent = 'Copiado!';
+                    copyFeedback.classList.remove('hidden');
+                    setTimeout(() => { copyFeedback.classList.add('hidden'); }, 2000);
+                } else {
+                    copyFeedback.textContent = 'Falha ao copiar.';
+                    copyFeedback.classList.remove('hidden');
+                    setTimeout(() => { copyFeedback.classList.add('hidden'); }, 2000);
+                }
+            } catch (err) {
+                 copyFeedback.textContent = 'Erro ao copiar.'; // Mensagem de erro mais genérica
+                 copyFeedback.classList.remove('hidden');
+                 setTimeout(() => { copyFeedback.classList.add('hidden'); }, 3000);
+            }
+            // Desselecionar o texto após a tentativa de cópia
+            if (window.getSelection) {
+              if (window.getSelection().empty) { // Chrome
+                window.getSelection().empty();
+              } else if (window.getSelection().removeAllRanges) { // Firefox
+                window.getSelection().removeAllRanges();
+              }
+            } else if (document.selection) { // IE?
+              document.selection.empty();
+            }
+        });
+
+        // Função para mostrar mensagens de erro do formulário
+        function showFormError(message) {
+            formErrorMessage.textContent = message;
+            formErrorMessage.classList.remove('hidden');
+        }
+
+        // Função para esconder mensagens de erro do formulário
+        function hideFormError() {
+            formErrorMessage.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
