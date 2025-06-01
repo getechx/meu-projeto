@@ -1,98 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Mim - Pag de Teste</title>
+    <title>Sobre Mim - Meu Site Incrível</title>
     <style>
-        /* Estilos para o menu principal */
-.menu-principal {
-    background-color: #333; /* Cor de fundo do menu */
-    padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
-    text-align: center;   /* Centraliza os itens do menu */
-    margin-bottom: 20px;  /* Adiciona uma margem abaixo do menu */
-}
-
-.menu-principal ul {
-    list-style-type: none; /* Remove os marcadores da lista */
-    margin: 0;
-    padding: 0;
-    overflow: hidden;      /* Garante que o fundo cubra os itens flutuantes, se houver */
-}
-
-.menu-principal li {
-    display: inline;       /* Faz os itens da lista ficarem na mesma linha */
-}
-
-.menu-principal li a {
-    display: inline-block; /* Permite adicionar padding e tratar como bloco */
-    color: white;          /* Cor do texto do link */
-    text-align: center;
-    padding: 14px 16px;    /* Espaçamento interno dos links */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-weight: bold;
-}
-
-.menu-principal li a:hover {
-    background-color: #111; /* Cor de fundo ao passar o mouse */
-}
-
-/* Estilo para o link da página ativa (opcional, mas bom para UX) */
-.menu-principal li a.active {
-    background-color: #0366d6; /* Cor azul do GitHub, ou outra de sua preferência */
-    color: white;
-}
+        /* Estilos gerais do corpo */
         body {
             font-family: sans-serif;
-            margin: 0;
-            padding: 20px;
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove preenchimentos padrão */
             background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
         }
+
+        /* Estilos para o menu principal (idêntico ao do index.html para consistência) */
+        .menu-principal {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .menu-principal ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .menu-principal li {
+            display: inline;
+        }
+
+        .menu-principal li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-principal li a:hover {
+            background-color: #555;
+        }
+
+        .menu-principal li a.active {
+            background-color: #0366d6;
+            color: white;
+        }
+
+        /* Estilos para o container da página Sobre Mim */
         .container {
             max-width: 800px;
-            margin: auto;
+            margin: 20px auto; /* Adiciona margem acima e centraliza */
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #0366d6; /* Cor azul do GitHub */
+
+        .container h1 {
+            color: #0366d6;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        h2 {
+
+        .container h2 {
             color: #333;
             border-bottom: 2px solid #0366d6;
-            padding-bottom: 5px;
+            padding-bottom: 8px;
             margin-top: 30px;
-        }
-        p, ul {
             margin-bottom: 15px;
         }
-        ul {
-            list-style-type: disc;
-            margin-left: 20px;
+
+        .container p, .container ul {
+            margin-bottom: 15px;
+            font-size: 1.1em; /* Aumenta um pouco o tamanho da fonte para leitura */
         }
-        a {
+
+        .container ul {
+            list-style-position: inside; /* Bolinhas da lista para dentro */
+            padding-left: 0; /* Remove padding padrão da ul */
+        }
+         .container ul li {
+            margin-bottom: 8px; /* Espaçamento entre itens da lista */
+        }
+
+        .container a { /* Estilo para links dentro do container */
             color: #0366d6;
             text-decoration: none;
         }
-        a:hover {
+
+        .container a:hover {
             text-decoration: underline;
-        }
-        .voltar-link {
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
+    <nav class="menu-principal">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre-mim.html" class="active">Sobre mim</a></li>
+            </ul>
+    </nav>
+
     <div class="container">
         <h1>Sobre Mim</h1>
 
@@ -124,11 +140,9 @@
 
         <section>
             <h2>Contato</h2>
-            <p>Você pode me encontrar no <a href="https://getechx.github.io/meu-projeto/" target="_blank">GitHub</a> ou entrar em contato por e-mail: <a href="descmcz@exemplo.com">seuemail@exemplo.com</a>.</p>
-            <p>Sinta-se à vontade para adicionar links para outras redes sociais ou formas de contato aqui!</p>
+            <p>Você pode me encontrar no <a href="https://github.com/SEU_NOME_DE_USUARIO_NO_GITHUB" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+            <p>Se desejar, adicione seu e-mail: <a href="mailto:seuemail@exemplo.com">seuemail@exemplo.com</a>.</p>
         </section>
-
-        <a href="index.html" class="voltar-link">Voltar para a Página Inicial</a>
     </div>
 </body>
 </html>
