@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Datas - Meu Site Incrível</title>
+    <style>
+        /* Estilos gerais do corpo (consistente com outras páginas) */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Estilos para o menu principal (copiado das outras páginas para consistência) */
+        .menu-principal {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .menu-principal ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .menu-principal li {
+            display: inline;
+        }
+
+        .menu-principal li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-principal li a:hover {
+            background-color: #555;
+        }
+
+        .menu-principal li a.active {
+            background-color: #0366d6;
+            color: white;
+        }
+
+        /* Estilos para o container da calculadora */
+        .container-calculadora {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .container-calculadora h1 {
+            color: #0366d6;
+            margin-bottom: 20px;
+        }
+
+        .container-calculadora label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .container-calculadora input[type="date"] {
+            width: calc(100% - 22px); /* Ajusta para padding e borda */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        .container-calculadora button {
+            background-color: #0366d6;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .container-calculadora button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            text-align: left;
+            line-height: 1.8;
+        }
+        #resultado p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="menu-principal">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sobre-mim.html">Sobre mim</a></li>
+            <li><a href="calculadora.html" class="active">Calculadora de Datas</a></li>
+            </ul>
+    </nav>
+
+    <div class="container-calculadora">
+        <h1>Calculadora de Diferença Entre Datas</h1>
+        
+        <label for="dataInicial">Data Inicial:</label>
+        <input type="date" id="dataInicial" name="dataInicial">
+        
+        <label for="dataFinal">Data Final:</label>
+        <input type="date" id="dataFinal" name="dataFinal">
+        
+        <button onclick="calcularDiferenca()">Calcular Diferença</button>
+        
+        <div id="resultado">
+            <p>Por favor, selecione as duas datas e clique em "Calcular Diferença".</p>
+        </div>
+    </div>
+
+    <script>
+        function calcularDiferenca() {
+            const dataInicialString = document.getElementById('dataInicial').value;
+            const dataFinalString = document.getElementById('dataFinal').value;
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (!dataInicialString || !dataFinalString) {
+                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione ambas as datas.</p>';
+                return;
+            }
+
+            // Adiciona 'T00:00:00' para evitar problemas de fuso horário na conversão para Date
+            const dataInicial = new Date(dataInicialString + 'T00:00:00');
+            const dataFinal = new Date(dataFinalString + 'T00:00:00');
+
+            if (dataFinal < dataInicial) {
+                resultadoDiv.innerHTML = '<p style="color: red;">A data final deve ser posterior à data inicial.</p>';
+                return;
+            }
+
+            const umDiaEmMilissegundos = 1000 * 60 * 60 * 24;
+            const diferencaEmMilissegundos = dataFinal.getTime() - dataInicial.getTime();
+            const diferencaEmDiasTotal = Math.round(diferencaEmMilissegundos / umDiaEmMilissegundos);
+
+            // Cálculo de anos, meses e dias restantes
+            let anos = dataFinal.getFullYear() - dataInicial.getFullYear();
+            let meses = dataFinal.getMonth() - dataInicial.getMonth();
+            let dias = dataFinal.getDate() - dataInicial.getDate();
+
+            if (dias < 0) {
+                meses--;
+                // Adiciona o número de dias do mês anterior à data final
+                const ultimoDiaDoMesAnterior = new Date(dataFinal.getFullYear(), dataFinal.getMonth(), 0).getDate();
+                dias += ultimoDiaDoMesAnterior;
+            }
+
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+            
+            let resultadoHTML = '<p><strong>Diferença Total:</strong></p>';
+            resultadoHTML += `<p>${diferencaEmDiasTotal} dia(s)</p>`;
+            resultadoHTML += '<p><strong>Detalhado (aproximado):</strong></p>';
+            resultadoHTML += `<p>${anos} ano(s), ${meses} mes(es) e ${dias} dia(s)</p>`;
+            
+            resultadoDiv.innerHTML = resultadoHTML;
+        }
+    </script>
+</body>
+</html>
