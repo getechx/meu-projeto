@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Datas - Meu Site Incrível</title>
+    <title>Calculadora de Adição de Dias - Meu Site Incrível</title>
     <style>
         /* Estilos gerais do corpo (consistente com outras páginas) */
         body {
@@ -56,18 +56,19 @@
 
         /* Estilos para o container da calculadora */
         .container-calculadora {
-            max-width: 600px;
+            max-width: 500px; /* Ajustado para novo layout */
             margin: 30px auto;
             background: #fff;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
+            text-align: left; /* Alinhamento geral à esquerda */
         }
 
         .container-calculadora h1 {
             color: #0366d6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center; /* Título centralizado */
         }
 
         .container-calculadora label {
@@ -75,7 +76,6 @@
             margin-top: 15px;
             margin-bottom: 5px;
             font-weight: bold;
-            text-align: left;
         }
 
         .container-calculadora input[type="date"] {
@@ -88,6 +88,25 @@
             font-size: 1em;
         }
 
+        .container-calculadora .opcoes-dias {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        
+        .container-calculadora .opcoes-dias label {
+            font-weight: normal; /* Labels dos radios normais */
+            margin-right: 15px;
+            margin-top: 0; /* Ajuste para labels de radio */
+            display: inline-block; /* Para ficarem na mesma linha com o radio */
+        }
+         .container-calculadora .opcoes-dias input[type="radio"] {
+            margin-right: 5px;
+            vertical-align: middle; /* Alinha radio com o texto */
+        }
+
+
         .container-calculadora button {
             background-color: #0366d6;
             color: white;
@@ -98,6 +117,9 @@
             font-size: 1.1em;
             transition: background-color 0.3s ease;
             margin-top: 10px;
+            display: block; /* Botão como bloco para centralizar ou ocupar largura */
+            margin-left: auto; /* Centraliza botão se não for width 100% */
+            margin-right: auto; /* Centraliza botão */
         }
 
         .container-calculadora button:hover {
@@ -110,7 +132,7 @@
             background-color: #e9ecef;
             border-radius: 4px;
             border: 1px solid #ced4da;
-            text-align: left;
+            text-align: center; /* Resultado centralizado */
             line-height: 1.8;
         }
         #resultado p {
@@ -129,68 +151,79 @@
     </nav>
 
     <div class="container-calculadora">
-        <h1>Calculadora de Diferença Entre Datas</h1>
+        <h1>Calcular Data Futura</h1>
         
         <label for="dataInicial">Data Inicial:</label>
         <input type="date" id="dataInicial" name="dataInicial">
         
-        <label for="dataFinal">Data Final:</label>
-        <input type="date" id="dataFinal" name="dataFinal">
+        <div class="opcoes-dias">
+            <label>Quantidade de Dias a Adicionar:</label><br>
+            <input type="radio" id="dias15" name="dias" value="15">
+            <label for="dias15">15 dias</label>
+            
+            <input type="radio" id="dias21" name="dias" value="21">
+            <label for="dias21">21 dias</label>
+            
+            <input type="radio" id="dias90" name="dias" value="90">
+            <label for="dias90">90 dias</label>
+        </div>
         
-        <button onclick="calcularDiferenca()">Calcular Diferença</button>
+        <button onclick="calcularDataFinal()">Calcular Data Final</button>
         
         <div id="resultado">
-            <p>Por favor, selecione as duas datas e clique em "Calcular Diferença".</p>
+            <p>Por favor, insira a data inicial e selecione a quantidade de dias.</p>
         </div>
     </div>
 
     <script>
-        function calcularDiferenca() {
+        function calcularDataFinal() {
             const dataInicialString = document.getElementById('dataInicial').value;
-            const dataFinalString = document.getElementById('dataFinal').value;
             const resultadoDiv = document.getElementById('resultado');
+            let diasSelecionados = 0;
 
-            if (!dataInicialString || !dataFinalString) {
-                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione ambas as datas.</p>';
+            const radios = document.getElementsByName('dias');
+            for (const radio of radios) {
+                if (radio.checked) {
+                    diasSelecionados = parseInt(radio.value);
+                    break;
+                }
+            }
+
+            if (!dataInicialString) {
+                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione a data inicial.</p>';
+                return;
+            }
+            if (diasSelecionados === 0) {
+                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione a quantidade de dias.</p>';
                 return;
             }
 
-            // Adiciona 'T00:00:00' para evitar problemas de fuso horário na conversão para Date
-            const dataInicial = new Date(dataInicialString + 'T00:00:00');
-            const dataFinal = new Date(dataFinalString + 'T00:00:00');
+            // Parse the initial date input string.
+            // Input format is 'YYYY-MM-DD'.
+            // new Date(year, monthIndex, day) where monthIndex is 0-11.
+            const partesData = dataInicialString.split('-'); // [YYYY, MM, DD]
+            const ano = parseInt(partesData[0]);
+            const mes = parseInt(partesData[1]) - 1; // Ajusta para 0-11
+            const dia = parseInt(partesData[2]);
+            
+            const dataInicial = new Date(ano, mes, dia);
 
-            if (dataFinal < dataInicial) {
-                resultadoDiv.innerHTML = '<p style="color: red;">A data final deve ser posterior à data inicial.</p>';
+            // Verifica se a data inicial é válida
+            if (isNaN(dataInicial.getTime())) {
+                resultadoDiv.innerHTML = '<p style="color: red;">Data inicial inválida.</p>';
                 return;
             }
-
-            const umDiaEmMilissegundos = 1000 * 60 * 60 * 24;
-            const diferencaEmMilissegundos = dataFinal.getTime() - dataInicial.getTime();
-            const diferencaEmDiasTotal = Math.round(diferencaEmMilissegundos / umDiaEmMilissegundos);
-
-            // Cálculo de anos, meses e dias restantes
-            let anos = dataFinal.getFullYear() - dataInicial.getFullYear();
-            let meses = dataFinal.getMonth() - dataInicial.getMonth();
-            let dias = dataFinal.getDate() - dataInicial.getDate();
-
-            if (dias < 0) {
-                meses--;
-                // Adiciona o número de dias do mês anterior à data final
-                const ultimoDiaDoMesAnterior = new Date(dataFinal.getFullYear(), dataFinal.getMonth(), 0).getDate();
-                dias += ultimoDiaDoMesAnterior;
-            }
-
-            if (meses < 0) {
-                anos--;
-                meses += 12;
-            }
             
-            let resultadoHTML = '<p><strong>Diferença Total:</strong></p>';
-            resultadoHTML += `<p>${diferencaEmDiasTotal} dia(s)</p>`;
-            resultadoHTML += '<p><strong>Detalhado (aproximado):</strong></p>';
-            resultadoHTML += `<p>${anos} ano(s), ${meses} mes(es) e ${dias} dia(s)</p>`;
-            
-            resultadoDiv.innerHTML = resultadoHTML;
+            const dataFinal = new Date(dataInicial);
+            dataFinal.setDate(dataInicial.getDate() + diasSelecionados);
+
+            // Formata a data final para dd/mm/yyyy
+            const diaFinal = String(dataFinal.getDate()).padStart(2, '0');
+            const mesFinal = String(dataFinal.getMonth() + 1).padStart(2, '0'); // Ajusta mês de volta para 1-12
+            const anoFinal = dataFinal.getFullYear();
+
+            resultadoDiv.innerHTML = `<p><strong>Data Final Calculada:</strong></p>
+                                      <p>${diaFinal}/${mesFinal}/${anoFinal}</p>`;
         }
     </script>
 </body>
