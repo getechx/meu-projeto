@@ -1,61 +1,83 @@
-<title>Getechx</title>
-<style>
-  /* Estilos para o menu principal */
-.menu-principal {
-    background-color: #333; /* Cor de fundo do menu */
-    padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
-    text-align: center;   /* Centraliza os itens do menu */
-    margin-bottom: 20px;  /* Adiciona uma margem abaixo do menu */
-}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site Incrível - Home</title>
+    <style>
+        /* Estilos gerais do corpo */
+        body {
+            font-family: sans-serif;
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove preenchimentos padrão */
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+        }
 
-.menu-principal ul {
-    list-style-type: none; /* Remove os marcadores da lista */
-    margin: 0;
-    padding: 0;
-    overflow: hidden;      /* Garante que o fundo cubra os itens flutuantes, se houver */
-}
+        /* Estilos para o menu principal */
+        .menu-principal {
+            background-color: #333; /* Cor de fundo do menu */
+            padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
+            text-align: center;   /* Centraliza os itens do menu */
+            width: 100%;          /* Faz o menu ocupar toda a largura */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
+        }
 
-.menu-principal li {
-    display: inline;       /* Faz os itens da lista ficarem na mesma linha */
-}
+        .menu-principal ul {
+            list-style-type: none; /* Remove os marcadores da lista */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
-.menu-principal li a {
-    display: inline-block; /* Permite adicionar padding e tratar como bloco */
-    color: white;          /* Cor do texto do link */
-    text-align: center;
-    padding: 14px 16px;    /* Espaçamento interno dos links */
-    text-decoration: none; /* Remove o sublinhado do link */
-    font-weight: bold;
-}
+        .menu-principal li {
+            display: inline;       /* Faz os itens da lista ficarem na mesma linha */
+        }
 
-.menu-principal li a:hover {
-    background-color: #111; /* Cor de fundo ao passar o mouse */
-}
+        .menu-principal li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;    /* Espaçamento interno dos links */
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+        }
 
-/* Estilo para o link da página ativa (opcional, mas bom para UX) */
-.menu-principal li a.active {
-    background-color: #0366d6; /* Cor azul do GitHub, ou outra de sua preferência */
-    color: white;
-}
-body {
-font-family: Mistery.Silent;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-margin: 0;
-background-color: #778899;
-color: #333;
-}
-h1 {
-color: #FFD700; /* Cor gold */
-}
-</style>
+        .menu-principal li a:hover {
+            background-color: #555; /* Cor de fundo ao passar o mouse */
+        }
+
+        /* Estilo para o link da página ativa */
+        .menu-principal li a.active {
+            background-color: #0366d6; /* Cor azul do GitHub, ou outra de sua preferência */
+            color: white;
+        }
+
+        /* Conteúdo principal da página */
+        .conteudo {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .conteudo h1 {
+            color: #0366d6;
+        }
+    </style>
 </head>
 <body>
-<center>
-  <h1>Olá, Mundo! Este é o meu site!</h1>
-  <p>Em breve, mais conteúdo aqui.</p>
-  </center>
+    <nav class="menu-principal">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="sobre-mim.html">Sobre mim</a></li>
+            </ul>
+    </nav>
+
+    <div class="conteudo">
+        <h1>Olá, Mundo! Este é o meu site no GitHub Pages!</h1>
+        <p>Bem-vindo à página inicial.</p>
+        <p>Use o menu acima para navegar pelo site.</p>
+    </div>
 </body>
 </html>
