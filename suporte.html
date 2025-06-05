@@ -11,7 +11,7 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #FF8C00; /* << ALTERADO para consistência */
             color: #333;
             display: flex;
             flex-direction: column;
@@ -19,8 +19,8 @@
         }
         header {
             /* background-color: #333;  Removido para não conflitar com o menu-principal */
-            /* color: #fff;             Removido pois o texto do menu tem sua própria cor */
-            /* padding: 1rem 0;        Removido pois o menu-principal tem seu próprio padding */
+            /* color: #fff;            Removido pois o texto do menu tem sua própria cor */
+            /* padding: 1rem 0;       Removido pois o menu-principal tem seu próprio padding */
             text-align: center; /* Mantido caso queira adicionar outros elementos ao header */
             width: 100%; /* Garante que o header ocupe a largura toda */
         }
@@ -85,9 +85,9 @@
             color: #333;
             margin-bottom: 20px;
         }
-        p {
+        p { /* Estilo geral para parágrafos dentro do .container */
             font-size: 1.1em;
-            margin-bottom: 30px;
+            margin-bottom: 30px; /* Ajustado para um espaçamento mais padrão, pode ser específico se necessário */
         }
         .contact-button {
             display: inline-block;
@@ -103,31 +103,39 @@
         .contact-button:hover {
             background-color: #cc7000; /* Tom mais escuro do laranja para o hover */
         }
+        
+        /* Estilos para o rodapé (Consistente com outras páginas) */
         footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: #fff;
-            margin-top: auto; /* Empurra o rodapé para baixo */
+            background-color: #333; /* Cor de fundo escura para o rodapé */
+            color: white; /* Cor do texto branca */
+            text-align: center; /* Centraliza o texto */
+            padding: 20px 0; /* Espaçamento interno (20px em cima e embaixo, 0 nas laterais) */
+            width: 100%; /* Largura total */
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1); /* Sombra sutil no topo do rodapé */
+            /* margin-top: auto; /* Removido para seguir o padrão das outras páginas, flex-grow no container cuida disso */
+        }
+
+        footer p {
+            margin: 0; /* Remove margens padrão do parágrafo no rodapé */
+            font-size: 0.9em; /* Tamanho da fonte um pouco menor para o rodapé */
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="menu-principal">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="calculadora.html">Calculadora de Datas</a></li>
-            <li><a href="suporte.html" class="active">Contato</a></li>
-          </ul>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculadora.html">Calculadora de Datas</a></li>
+                <li><a href="suporte.html" class="active">Contato</a></li>
+            </ul>
         </nav>
     </header>
 
     <div class="container">
         <h2>Fale Conosco</h2>
         <p>Tem alguma dúvida, sugestão, ou quer discutir uma ideia? Adoraríamos ouvir de você!</p>
-        <p>Clique no botão abaixo para nos enviar um e-mail diretamente:</p>
-        <p>getechx@getechx.com.br</p>
+        <p>Clique no botão abaixo para nos enviar um e-mail diretamente:</p> <p><a href="mailto:getechx@getechx.com.br" class="contact-button" style="background-color: #0366d6; margin-bottom: 0;">Enviar E-mail</a></p>
         </div>
 
     <footer>
