@@ -3,40 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getechx - Contato</title>
-    <link rel="stylesheet" href="style.css"> {/* Se você tiver um arquivo CSS comum */}
+    <title>Suporte - Getechx</title>
+    <style>
+        /* Estilos básicos para demonstração - idealmente, coloque em um arquivo .css separado */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #FF8C00; /* << COR DE FUNDO ADICIONADA AQUI */
+            color: #333; /* Pode ser necessário ajustar a cor do texto para melhor contraste com o novo fundo */
+        }
+        header {
+            background-color: #333; /* Mantendo o header com fundo escuro para contraste */
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        /* Se você tiver um menu de navegação, ele normalmente iria aqui dentro do header ou logo abaixo */
+        nav ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff; /* Cor do link no menu */
+            text-decoration: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: #fff; /* Fundo branco para a área de conteúdo principal para legibilidade */
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave para destacar o container */
+        }
+        h2 {
+            color: #333;
+        }
+        a {
+            color: #007bff; /* Azul padrão para links, pode precisar de ajuste dependendo do fundo onde estiver */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #333; /* Mantendo o footer com fundo escuro */
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
           <ul>
             <li><a href="/">Início</a></li>
-            <li><a href="/sobre.html">Sobre</a></li>
-            <li><a href="/contato.html">Contato</a></li>
+            <li><a href="/suporte.html">Suporte</a></li>
           </ul>
         </nav>
-        <h1>Página de Contato</h1>
+        <h1>Página de Suporte</h1>
     </header>
 
-    <main>
-        <section>
-            <h2>Bem-vindo à nossa página de Contato!</h2>
+    <div class="container">
+        <section id="novas-ideias">
+            <h2>Entre em contato para novas ideias ou melhorias</h2>
+            <p>Sua opinião é muito importante para nós! Se você tem alguma sugestão, ideia para novas funcionalidades, propostas de melhoria ou qualquer feedback construtivo sobre nossos projetos, adoraríamos ouvir de você.</p>
+            <p>Acreditamos que a colaboração e o feedback da comunidade são essenciais para o crescimento e aprimoramento contínuo.</p>
         </section>
-        
-        
-        <section>
-            <h3>Entre em Contato</h3>
-            <p>Para novas ideias ou melhorias</p>
-            <ul>
-                <li><strong>Email:</strong> <a href="getechx@getechx.com.br">getechx@getechx.com.br</a></li>
-                
-            </ul>
+
+        <section id="contato-email">
+            <h2>E-mail para Contato</h2>
+            <p>Para nos enviar suas ideias, sugestões, ou se precisar de qualquer tipo de suporte, por favor, entre em contato através do seguinte endereço de e-mail:</p>
+            <p><strong>E-mail:</strong> <a href="mailto:Getechx@getechx.com.br">Getechx@getechx.com.br</a></p>
+            <p>Responderemos assim que possível.</p>
         </section>
-    </main>
+
+        </div>
 
     <footer>
         <p>&copy; 2025 Getechx. Todos os direitos reservados.</p>
         </footer>
 
-    </body>
+</body>
 </html>
