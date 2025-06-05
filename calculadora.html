@@ -13,6 +13,9 @@
             background-color: #FF8C00;
             color: #333;
             line-height: 1.6;
+            display: flex; /* Adicionado para layout de rodapé fixo */
+            flex-direction: column; /* Adicionado para layout de rodapé fixo */
+            min-height: 100vh; /* Adicionado para layout de rodapé fixo */
         }
 
         /* Estilos para o menu principal (copiado das outras páginas para consistência) */
@@ -63,6 +66,7 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
             text-align: left; /* Alinhamento geral à esquerda */
+            flex-grow: 1; /* Adicionado para layout de rodapé fixo */
         }
 
         .container-calculadora h1 {
@@ -140,6 +144,21 @@
             font-size: 1.1em;
         }
         
+        /* Estilos para o rodapé */
+        footer {
+            background-color: #333; /* Cor de fundo escura para o rodapé */
+            color: white; /* Cor do texto branca */
+            text-align: center; /* Centraliza o texto */
+            padding: 20px 0; /* Espaçamento interno (20px em cima e embaixo, 0 nas laterais) */
+            /* margin-top: 30px; Removido para layout de rodapé fixo */
+            width: 100%; /* Largura total */
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1); /* Sombra sutil no topo do rodapé */
+        }
+
+        footer p {
+            margin: 0; /* Remove margens padrão do parágrafo */
+            font-size: 0.9em; /* Tamanho da fonte um pouco menor */
+        }
 
     </style>
 </head>
@@ -176,6 +195,10 @@
             <p>Por favor, insira a data inicial e selecione a quantidade de dias.</p>
         </div>
     </div>
+
+    <footer>
+        <p>© 2025 Getechx. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
         function calcularDataFinal() {
