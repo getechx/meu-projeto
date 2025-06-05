@@ -3,228 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Adição de Dias - Meu Site Incrível</title>
+    <title>Getechx - Home</title>
     <style>
-        /* Estilos gerais do corpo (consistente com outras páginas) */
+        /* Estilos gerais do corpo */
         body {
             font-family: sans-serif;
-            margin: 0;
-            padding: 0;
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove preenchimentos padrão */
             background-color: #FF8C00;
             color: #333;
             line-height: 1.6;
         }
 
-        /* Estilos para o menu principal (copiado das outras páginas para consistência) */
+        /* Estilos para o menu principal */
         .menu-principal {
-            background-color: #FF8C00;
-            padding: 10px 0;
-            text-align: center;
-            width: 100%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #FF8C00; /* Cor de fundo do menu */
+            padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
+            text-align: center;   /* Centraliza os itens do menu */
+            width: 100%;          /* Faz o menu ocupar toda a largura */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
         }
 
         .menu-principal ul {
-            list-style-type: none;
+            list-style-type: none; /* Remove os marcadores da lista */
             margin: 0;
             padding: 0;
             overflow: hidden;
         }
 
         .menu-principal li {
-            display: inline;
+            display: inline;       /* Faz os itens da lista ficarem na mesma linha */
         }
 
         .menu-principal li a {
             display: inline-block;
             color: white;
             text-align: center;
-            padding: 14px 20px;
+            padding: 14px 20px;    /* Espaçamento interno dos links */
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
         }
 
         .menu-principal li a:hover {
-            background-color: #555;
+            background-color: #696969; /* Cor de fundo ao passar o mouse */
         }
 
+        /* Estilo para o link da página ativa */
         .menu-principal li a.active {
-            background-color: #696969;
+            background-color: #696969; /* Cor azul do GitHub, ou outra de sua preferência */
             color: white;
         }
 
-        /* Estilos para o container da calculadora */
-        .container-calculadora {
-            max-width: 500px; /* Ajustado para novo layout */
-            margin: 30px auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: left; /* Alinhamento geral à esquerda */
+        /* Conteúdo principal da página */
+        .conteudo {
+            padding: 20px;
+            text-align: center;
         }
 
-        .container-calculadora h1 {
+        .conteudo h1 {
             color: #696969;
-            margin-bottom: 25px;
-            text-align: center; /* Título centralizado */
-        }
-
-        .container-calculadora label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .container-calculadora input[type="date"] {
-            width: calc(100% - 22px); /* Ajusta para padding e borda */
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-
-        .container-calculadora .opcoes-dias {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-        }
-        
-        .container-calculadora .opcoes-dias label {
-            font-weight: normal; /* Labels dos radios normais */
-            margin-right: 15px;
-            margin-top: 0; /* Ajuste para labels de radio */
-            display: inline-block; /* Para ficarem na mesma linha com o radio */
-        }
-         .container-calculadora .opcoes-dias input[type="radio"] {
-            margin-right: 5px;
-            vertical-align: middle; /* Alinha radio com o texto */
-        }
-
-
-        .container-calculadora button {
-            background-color: #0366d6;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            display: block; /* Botão como bloco para centralizar ou ocupar largura */
-            margin-left: auto; /* Centraliza botão se não for width 100% */
-            margin-right: auto; /* Centraliza botão */
-        }
-
-        .container-calculadora button:hover {
-            background-color: #0056b3;
-        }
-
-        #resultado {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-            text-align: center; /* Resultado centralizado */
-            line-height: 1.8;
-        }
-        #resultado p {
-            margin: 5px 0;
-            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
-    <nav class="menu-principal">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="calculadora.html" class="active">Calculadora de Datas</a></li>
-            <li><a href="/contato.html">Contato</a></li>
-            </ul>
-    </nav>
+   <nav class="menu-principal">
+    <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="calculadora.html">Calculadora de Datas</a></li>
+        <li><a href="/contato.html">Contato</a></li>
+    </ul>
+</nav>
 
-    <div class="container-calculadora">
-        <h1>Calcular Data Futura</h1>
-        
-        <label for="dataInicial">Data Inicial:</label>
-        <input type="date" id="dataInicial" name="dataInicial">
-        
-        <div class="opcoes-dias">
-            <label>Selecione a Opção de Prazo:</label><br>
-            <input type="radio" id="dias15" name="dias" value="15">
-            <label for="dias15">Abertura de Nova Agenda (15 dias)</label><br>
-            
-            <input type="radio" id="dias21" name="dias" value="21">
-            <label for="dias21">Bloqueio de Agenda (21 dias)</label><br>
-            
-            <input type="radio" id="dias90" name="dias" value="90">
-            <label for="dias90">Lincença Prêmio (90 Dias)</label>
-        </div>
-        
-        <button onclick="calcularDataFinal()">Calcular Data Final</button>
-        
-        <div id="resultado">
-            <p>Por favor, insira a data inicial e selecione a quantidade de dias.</p>
-        </div>
+    <div class="conteudo">
+        <h1>Olá :D </h1>
+        <p>Bem-vindo à página inicial.</p>
+        <p>Use o menu acima para navegar pelo site.</p>
     </div>
-
-    <script>
-        function calcularDataFinal() {
-            const dataInicialString = document.getElementById('dataInicial').value;
-            const resultadoDiv = document.getElementById('resultado');
-            let diasSelecionados = 0;
-
-            const radios = document.getElementsByName('dias');
-            for (const radio of radios) {
-                if (radio.checked) {
-                    diasSelecionados = parseInt(radio.value);
-                    break;
-                }
-            }
-
-            if (!dataInicialString) {
-                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione a data inicial.</p>';
-                return;
-            }
-            if (diasSelecionados === 0) {
-                resultadoDiv.innerHTML = '<p style="color: red;">Por favor, selecione a quantidade de dias.</p>';
-                return;
-            }
-
-            // Parse the initial date input string.
-            // Input format is 'YYYY-MM-DD'.
-            // new Date(year, monthIndex, day) where monthIndex is 0-11.
-            const partesData = dataInicialString.split('-'); // [YYYY, MM, DD]
-            const ano = parseInt(partesData[0]);
-            const mes = parseInt(partesData[1]) - 1; // Ajusta para 0-11
-            const dia = parseInt(partesData[2]);
-            
-            const dataInicial = new Date(ano, mes, dia);
-
-            // Verifica se a data inicial é válida
-            if (isNaN(dataInicial.getTime())) {
-                resultadoDiv.innerHTML = '<p style="color: red;">Data inicial inválida.</p>';
-                return;
-            }
-            
-            const dataFinal = new Date(dataInicial);
-            dataFinal.setDate(dataInicial.getDate() + diasSelecionados);
-
-            // Formata a data final para dd/mm/yyyy
-            const diaFinal = String(dataFinal.getDate()).padStart(2, '0');
-            const mesFinal = String(dataFinal.getMonth() + 1).padStart(2, '0'); // Ajusta mês de volta para 1-12
-            const anoFinal = dataFinal.getFullYear();
-
-            resultadoDiv.innerHTML = `<p><strong>Data Final Calculada:</strong></p>
-                                      <p>${diaFinal}/${mesFinal}/${anoFinal}</p>`;
-        }
-    </script>
 </body>
 </html>
