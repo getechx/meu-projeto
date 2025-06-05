@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suporte - Getechx</title>
+    <title>Contato - Getechx</title>
     <style>
         /* Estilos básicos para demonstração - idealmente, coloque em um arquivo .css separado */
         body {
@@ -11,11 +11,14 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #FF8C00; /* << COR DE FUNDO ADICIONADA AQUI */
-            color: #333; /* Pode ser necessário ajustar a cor do texto para melhor contraste com o novo fundo */
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
-            background-color: #333; /* Mantendo o header com fundo escuro para contraste */
+            background-color: #333;
             color: #fff;
             padding: 1rem 0;
             text-align: center;
@@ -28,42 +31,57 @@
             padding: 0;
             list-style: none;
             text-align: center;
+            background-color: #444; /* Cor de fundo para o menu, se dentro do header */
+            padding: 0.5rem 0;
         }
         nav ul li {
             display: inline;
             margin-right: 20px;
         }
         nav ul li a {
-            color: #fff; /* Cor do link no menu */
+            color: #fff;
             text-decoration: none;
         }
 
         .container {
+            flex: 1; /* Faz o container crescer para preencher o espaço disponível */
             width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
-            background-color: #fff; /* Fundo branco para a área de conteúdo principal para legibilidade */
-            margin-top: 20px;
+            max-width: 800px; /* Limita a largura máxima para melhor leitura */
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra suave para destacar o container */
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center; /* Centraliza o conteúdo do container */
         }
         h2 {
             color: #333;
+            margin-bottom: 20px;
         }
-        a {
-            color: #007bff; /* Azul padrão para links, pode precisar de ajuste dependendo do fundo onde estiver */
+        p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        .contact-button {
+            display: inline-block;
+            background-color: #FF8C00; /* Cor laranja que usamos anteriormente */
+            color: #fff;
+            padding: 15px 30px;
             text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
-        a:hover {
-            text-decoration: underline;
+        .contact-button:hover {
+            background-color: #cc7000; /* Tom mais escuro do laranja para o hover */
         }
         footer {
             text-align: center;
             padding: 20px;
-            margin-top: 20px;
-            background-color: #333; /* Mantendo o footer com fundo escuro */
+            background-color: #333;
             color: #fff;
+            margin-top: auto; /* Empurra o rodapé para baixo */
         }
     </style>
 </head>
@@ -71,31 +89,20 @@
     <header>
         <nav>
           <ul>
-              
-             <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="calculadora.html">Calculadora de Datas</a></li>
         <li><a href="/contato.html">Contato</a></li>
-              
           </ul>
         </nav>
-        <h1>Página de Suporte</h1>
+        <h1>Entre em Contato</h1>
     </header>
 
     <div class="container">
-        <section id="novas-ideias">
-            <h2>Entre em contato para novas ideias ou melhorias</h2>
-            <p>Sua opinião é muito importante para nós! Se você tem alguma sugestão, ideia para novas funcionalidades, propostas de melhoria ou qualquer feedback construtivo sobre nossos projetos, adoraríamos ouvir de você.</p>
-            <p>Acreditamos que a colaboração e o feedback da comunidade são essenciais para o crescimento e aprimoramento contínuo.</p>
-        </section>
-
-        <section id="contato-email">
-            <h2>E-mail para Contato</h2>
-            <p>Para nos enviar suas ideias, sugestões, ou se precisar de qualquer tipo de suporte, por favor, entre em contato através do seguinte endereço de e-mail:</p>
-            <p><strong>E-mail:</strong> <a href="mailto:Getechx@getechx.com.br">Getechx@getechx.com.br</a></p>
-            <p>Responderemos assim que possível.</p>
-        </section>
-
-        </div>
+        <h2>Fale Conosco</h2>
+        <p>Tem alguma dúvida, sugestão, ou quer discutir uma ideia? Adoraríamos ouvir de você!</p>
+        <p>Clique no botão abaixo para nos enviar um e-mail diretamente:</p>
+        <a href="mailto:getechx@getechx.com.br" class="contact-button">Entrar em Contato por E-mail</a>
+    </div>
 
     <footer>
         <p>&copy; 2025 Getechx. Todos os direitos reservados.</p>
