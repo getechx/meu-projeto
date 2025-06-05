@@ -1,0 +1,60 @@
+Com certeza! Abaixo, apresento um exemplo de código CSS que você pode usar para estilizar uma área de contato. Este CSS é pensado para ser usado com uma estrutura HTML similar à que exemplifiquei anteriormente para GitHub Pages.
+
+Primeiro, vamos imaginar uma estrutura HTML básica para a nossa seção de contato (ex: em um arquivo contato.html ou index.html):
+
+HTML
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Contato</title>
+    <link rel="stylesheet" href="estilo.css"> </head>
+<body>
+
+    <section id="contato">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <p class="subtitulo">Adoraríamos ouvir de você! Preencha o formulário abaixo ou use um dos nossos canais diretos.</p>
+
+            <div class="contato-wrapper">
+                <div class="info-contato">
+                    <h3>Informações Diretas</h3>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:seuemail@example.com">seuemail@example.com</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+5511999999999">(11) 99999-9999</a> (Opcional)</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Sua Cidade, Seu Estado (Opcional)</p>
+
+                    <div class="social-links">
+                        <a href="https://github.com/seuusuario" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/seuperfil" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://twitter.com/seutwitter" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <form id="formulario-contato" class="formulario" action="URL_DO_SEU_SERVICO_DE_FORMULARIO" method="POST">
+                    <h3>Envie uma Mensagem</h3>
+                    <div class="form-group">
+                        <label for="nome">Nome Completo:</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Seu Melhor E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assunto">Assunto:</label>
+                        <input type="text" id="assunto" name="assunto">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Sua Mensagem:</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
