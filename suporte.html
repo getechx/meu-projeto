@@ -18,30 +18,57 @@
             min-height: 100vh;
         }
         header {
-            background-color: #333;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
+            /* background-color: #333;  Removido para não conflitar com o menu-principal */
+            /* color: #fff;             Removido pois o texto do menu tem sua própria cor */
+            /* padding: 1rem 0;        Removido pois o menu-principal tem seu próprio padding */
+            text-align: center; /* Mantido caso queira adicionar outros elementos ao header */
+            width: 100%; /* Garante que o header ocupe a largura toda */
         }
+        /* header h1 não é usado no HTML fornecido, mas mantido caso adicione no futuro */
         header h1 {
             margin: 0;
+            color: #fff; /* Exemplo, se h1 fosse adicionado diretamente no header escuro */
         }
-        /* Se você tiver um menu de navegação, ele normalmente iria aqui dentro do header ou logo abaixo */
+
+        /* Estilos para o menu principal (Consistente com a página da calculadora) */
         .menu-principal {
-            background-color: #FF8C00; /* Cor de fundo do menu */
-            padding: 10px 0;      /* Espaçamento interno (cima/baixo e laterais) */
-            text-align: center;   /* Centraliza os itens do menu */
-            width: 100%;          /* Faz o menu ocupar toda a largura */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
+            background-color: #FF8C00;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        nav ul li {
+
+        .menu-principal ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .menu-principal li {
             display: inline;
-            margin-right: 20px;
         }
-        nav ul li a {
-            color: #fff;
+
+        .menu-principal li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
             text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
+
+        .menu-principal li a:hover {
+            background-color: #555;
+        }
+
+        .menu-principal li a.active {
+            background-color: #696969; /* Cinza escuro para o item ativo */
+            color: white;
+        }
+        /* Fim dos estilos do menu principal */
 
         .container {
             flex: 1; /* Faz o container crescer para preencher o espaço disponível */
@@ -76,15 +103,22 @@
         .contact-button:hover {
             background-color: #cc7000; /* Tom mais escuro do laranja para o hover */
         }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: auto; /* Empurra o rodapé para baixo */
+        }
     </style>
 </head>
 <body>
     <header>
         <nav class="menu-principal">
           <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="calculadora.html">Calculadora de Datas</a></li>
-        <li><a href="suporte.html">Contato</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="calculadora.html">Calculadora de Datas</a></li>
+            <li><a href="suporte.html" class="active">Contato</a></li> {/* MODIFICADO: class="active" adicionada aqui e removida de Home */}
           </ul>
         </nav>
     </header>
@@ -94,11 +128,11 @@
         <p>Tem alguma dúvida, sugestão, ou quer discutir uma ideia? Adoraríamos ouvir de você!</p>
         <p>Clique no botão abaixo para nos enviar um e-mail diretamente:</p>
         <p>getechx@getechx.com.br</p>
-    </div>
+        </div>
 
     <footer>
         <p>&copy; 2025 Getechx. Todos os direitos reservados.</p>
-        </footer>
+    </footer>
 
 </body>
 </html>
