@@ -10,24 +10,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f0f2f5;
+    /* Cor da página alterada */
+    background-color: #FF8C00;
     margin: 0;
+    min-height: 100vh; /* Garante que o corpo ocupe a altura toda */
   }
-  /* --- ESTILOS DO NOVO MENU --- */
+
+  /* --- ESTILOS DO MENU --- */
   nav {
-    background-color: #333;
+    /* Cor do menu alterada */
+    background-color: #FF8C00;
     width: 100%;
     padding: 0;
-    margin-bottom: 20px;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave para destacar */
   }
   nav ul {
     margin: 0;
     padding: 0;
-    list-style: none; /* Remove os pontos da lista */
+    list-style: none;
   }
   nav li {
-    display: inline-block; /* Alinha os itens do menu horizontalmente */
+    display: inline-block;
   }
   nav a {
     display: block;
@@ -35,19 +39,33 @@
     text-decoration: none;
     padding: 15px 20px;
     transition: background-color 0.3s;
+    font-weight: bold;
   }
   nav a:hover {
-    background-color: #555;
+    background-color: #e67e00; /* Tom mais escuro para o hover */
   }
   nav a.active {
-    background-color: #FF8C00; /* Cor de destaque para o link ativo */
+    background-color: #cc7000; /* Tom ainda mais escuro para o ativo */
   }
   /* --- FIM DOS ESTILOS DO MENU --- */
+
+  /* Empurra o rodapé para baixo */
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
   .container {
-    background-color: #FF8C00;
+    /* Cor de fundo do conteúdo alterada */
+    background-color: #696969;
+    /* Cor do texto do conteúdo alterada para ser legível */
+    color: #FFFFFF;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 350px;
   }
   .form-group {
@@ -79,49 +97,63 @@
   button:hover {
     background-color: #218838;
   }
+
+  /* --- ESTILO DO RODAPÉ --- */
+  footer {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
 </style>
 </head>
 <body>
 
   <nav>
     <ul>
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="calculadora.html">Calculadora de Datas</a></li>
-      <li><a href="descricao.html">Gerar Descrição</a></li>
+      <li><a href="descricao.html" class="active">Gerar Descrição</a></li>
       <li><a href="suporte.html">Contato</a></li>
-      
     </ul>
   </nav>
 
-  <div class="container">
-    <h2>Gerador de Descrição</h2>
-    <div class="form-group">
-      <label for="codigo">Código:</label>
-      <input type="text" id="codigo" placeholder="Insira o código">
+  <main>
+    <div class="container">
+      <h2>Gerador de Descrição</h2>
+      <div class="form-group">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" placeholder="Insira o código">
+      </div>
+      <div class="form-group">
+        <label for="motivo">Motivo:</label>
+        <select id="motivo">
+          <option value="Bloqueio">Bloqueio</option>
+          <option value="Férias">Férias</option>
+          <option value="Remarcação">Remarcação</option>
+          <option value="Abono">Abono</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="profissional">Profissional:</label>
+        <input type="text" id="profissional" placeholder="Nome do profissional">
+      </div>
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" placeholder="Número do CPF">
+      </div>
+      <div class="form-group">
+        <label for="periodo">Período:</label>
+        <input type="text" id="periodo" placeholder="Ex: 21/06/2025 a 30/06/2025">
+      </div>
+      <button onclick="copiarDescricao()">Copiar Descrição</button>
     </div>
-    <div class="form-group">
-      <label for="motivo">Motivo:</label>
-      <select id="motivo">
-        <option value="Bloqueio">Bloqueio</option>
-        <option value="Férias">Férias</option>
-        <option value="Remarcação">Remarcação</option>
-        <option value="Abono">Abono</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="profissional">Profissional:</label>
-      <input type="text" id="profissional" placeholder="Nome do profissional">
-    </div>
-    <div class="form-group">
-      <label for="cpf">CPF:</label>
-      <input type="text" id="cpf" placeholder="Número do CPF">
-    </div>
-    <div class="form-group">
-      <label for="periodo">Período:</label>
-      <input type="text" id="periodo" placeholder="Ex: 21/06/2025 a 30/06/2025">
-    </div>
-    <button onclick="copiarDescricao()">Copiar Descrição</button>
-  </div>
+  </main>
+
+  <footer>
+    © 2025 Getechx. Todos os direitos reservados.
+  </footer>
 
   <script>
   function copiarDescricao() {
