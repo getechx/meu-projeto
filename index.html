@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Getechx - Home</title>
 
+    <!-- ÍCONES E MANIFESTO DO SITE -->
     <link rel="icon" type="image/png" href="/getechx/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/getechx/favicon.svg" />
     <link rel="shortcut icon" href="/getechx/favicon.ico" />
@@ -15,10 +16,10 @@
     <style>
         /* Estilos gerais do corpo */
         body {
-            font-family: sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             margin: 0; /* Remove margens padrão */
             padding: 0; /* Remove preenchimentos padrão */
-            background-color: #FF8C00;
+            background-color: #f0f2f5; /* Fundo mais suave */
             color: #333;
             line-height: 1.6;
             display: flex; /* Adicionado para layout de rodapé fixo */
@@ -32,7 +33,10 @@
             padding: 10px 0;   /* Espaçamento interno (cima/baixo e laterais) */
             text-align: center;   /* Centraliza os itens do menu */
             width: 100%;          /* Faz o menu ocupar toda a largura */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .menu-principal ul {
@@ -43,7 +47,7 @@
         }
 
         .menu-principal li {
-            display: inline;     /* Faz os itens da lista ficarem na mesma linha */
+            display: inline-block;     /* Faz os itens da lista ficarem na mesma linha */
         }
 
         .menu-principal li a {
@@ -53,28 +57,111 @@
             padding: 14px 20px;   /* Espaçamento interno dos links */
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
         }
 
         .menu-principal li a:hover {
-            background-color: #696969; /* Cor de fundo ao passar o mouse */
+            background-color: #e57e00; /* Cor mais escura ao passar o mouse */
+            transform: translateY(-2px);
         }
 
-        /* Estilo para o link da página ativa */
         .menu-principal li a.active {
-            background-color: #696969; /* Cor azul do GitHub, ou outra de sua preferência */
+            background-color: #d37300; 
             color: white;
         }
 
         /* Conteúdo principal da página */
         .conteudo {
-            padding: 20px;
+            padding: 2rem 1rem;
             text-align: center;
-            flex-grow: 1; /* Adicionado para layout de rodapé fixo */
+            flex-grow: 1; /* Para o layout de rodapé fixo */
+            background-color: #ffffff;
+        }
+        
+        .conteudo h1 {
+            color: #FF8C00;
+            font-size: 2.5rem;
+        }
+        
+        /* Estilos para o gerador Gemini */
+        #gerador-descricao {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
         }
 
-        .conteudo h1 {
-            color: #696969;
+        #gerador-descricao h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        #prompt-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        
+        #generate-btn {
+            background: linear-gradient(45deg, #FF8C00, #FFA500);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #generate-btn:hover {
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        #generate-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Animação de carregamento */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF8C00;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto 0;
+            display: none; /* Começa escondido */
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #gemini-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            text-align: left;
+            min-height: 50px;
+            white-space: pre-wrap; /* Preserva quebras de linha */
         }
         
         /* Estilos para o rodapé */
@@ -84,14 +171,12 @@
             text-align: center; /* Centraliza o texto */
             padding: 20px 0; /* Espaçamento interno (20px em cima e embaixo, 0 nas laterais) */
             width: 100%; /* Largura total */
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1); /* Sombra sutil no topo do rodapé */
         }
 
         footer p {
             margin: 0; /* Remove margens padrão do parágrafo */
             font-size: 0.9em; /* Tamanho da fonte um pouco menor */
         }
-        
     </style>
 </head>
 <body>
@@ -99,21 +184,105 @@
     <ul>
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="calculadora.html">Calculadora de Datas</a></li>
-        <li><a href="descricao.html">Gerar Descrição</a></li>
+        <li><a href="#gerador-descricao">Gerar Descrição</a></li>
         <li><a href="suporte.html">Contato</a></li>
-        
     </ul>
 </nav>
 
     <div class="conteudo">
         <h1>Olá :D </h1>
         <p>Bem-vindo à página inicial.</p>
-        <p>Use o menu acima para navegar pelo site.</p>
+        <p>Use o menu acima para navegar pelo site ou experimente o nosso novo gerador de ideias abaixo!</p>
+        
+        <!-- Secção do Gerador Gemini -->
+        <div id="gerador-descricao">
+            <h2>✨ Gerador de Ideias Criativas</h2>
+            <p>Insira um tópico e deixe a IA gerar uma descrição para si!</p>
+            <input type="text" id="prompt-input" placeholder="Ex: Um gato astronauta">
+            <button id="generate-btn">Gerar Descrição</button>
+            <div class="loader" id="loader"></div>
+            <div id="gemini-result">O resultado aparecerá aqui...</div>
+        </div>
     </div>
 
     <footer>
         <p>© 2025 Getechx. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        // --- LÓGICA PARA A API GEMINI ---
+
+        const generateBtn = document.getElementById('generate-btn');
+        const promptInput = document.getElementById('prompt-input');
+        const resultDiv = document.getElementById('gemini-result');
+        const loader = document.getElementById('loader');
+
+        generateBtn.addEventListener('click', async () => {
+            const prompt = promptInput.value;
+            if (!prompt) {
+                resultDiv.textContent = 'Por favor, insira um tópico para gerar uma descrição.';
+                return;
+            }
+
+            // Desativar botão e mostrar o loader
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = 'A gerar...';
+            loader.style.display = 'block';
+            resultDiv.textContent = '';
+
+            try {
+                // Monta o corpo da requisição para a API
+                const chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Gere uma descrição curta (2-3 frases) e criativa para o tópico: "${prompt}"` }] });
+                const payload = { contents: chatHistory };
+                
+                const apiKey = "" // A chave API será injetada pelo ambiente
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                
+                // Extrai e exibe o texto da resposta
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    resultDiv.textContent = text;
+                } else {
+                    // Trata casos onde a resposta não tem o conteúdo esperado
+                    resultDiv.textContent = 'Não foi possível obter uma resposta. Tente novamente.';
+                }
+
+            } catch (error) {
+                console.error('Erro ao chamar a API Gemini:', error);
+                resultDiv.textContent = 'Ocorreu um erro ao comunicar com a IA. Por favor, verifique a consola para mais detalhes.';
+            } finally {
+                // Reativar o botão e esconder o loader
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = 'Gerar Descrição';
+                loader.style.display = 'none';
+            }
+        });
+        
+        // --- LÓGICA PARA NAVEGAÇÃO SUAVE ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
     
 </body>
 </html>
