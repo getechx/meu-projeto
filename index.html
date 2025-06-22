@@ -142,7 +142,7 @@
             font-size: 1.1rem;
         }
         
-        /* Estilos específicos para o conversor */
+        /* Estilos específicos para o conversor e calculadora */
         .converter-row {
             display: flex;
             flex-wrap: wrap;
@@ -182,8 +182,8 @@
    <nav class="menu-principal">
     <ul>
         <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="calculadora.html">Calculadora</a></li>
-        <li><a href="descricao.html">Descrição</a></li>
+        <li><a href="#conversor-unidades">Converter Unidades</a></li>
+        <li><a href="#calculadora-imc">Calculadora IMC</a></li>
         <li><a href="suporte.html">Contato</a></li>
     </ul>
 </nav>
@@ -191,7 +191,7 @@
     <div class="conteudo">
         <h1>Olá :D </h1>
         <p>Bem-vindo à página inicial.</p>
-        <p>Use o menu acima para navegar pelo site ou experimente a nossa ferramenta de conversão de unidades!</p>
+        <p>Use o menu acima para navegar pelo site ou experimente as nossas ferramentas!</p>
         
         <!-- Secção do Conversor de Unidades -->
         <div id="conversor-unidades" class="tool-container">
@@ -215,6 +215,20 @@
         
             <button id="convert-btn">Converter</button>
             <div id="unit-result" class="result-box">O resultado aparecerá aqui...</div>
+        </div>
+
+        <!-- Secção da Calculadora de IMC -->
+        <div id="calculadora-imc" class="tool-container">
+            <h2>⚖️ Calculadora de IMC</h2>
+            <p>Insira o seu peso e altura para calcular o seu Índice de Massa Corporal.</p>
+            
+            <div class="converter-row">
+                <input type="number" id="weight-input" placeholder="Peso (em kg)">
+                <input type="number" id="height-input" placeholder="Altura (em cm)">
+            </div>
+        
+            <button id="calculate-bmi-btn">Calcular IMC</button>
+            <div id="bmi-result" class="result-box">O resultado aparecerá aqui...</div>
         </div>
     </div>
 
@@ -285,7 +299,41 @@
 
         unitCategory.addEventListener('change', populateUnits);
         convertBtn.addEventListener('click', convertUnits);
-        
+        populateUnits(); // Inicializar o conversor
+
+        // --- LÓGICA PARA A CALCULADORA DE IMC ---
+        const weightInput = document.getElementById('weight-input');
+        const heightInput = document.getElementById('height-input');
+        const calculateBmiBtn = document.getElementById('calculate-bmi-btn');
+        const bmiResultDiv = document.getElementById('bmi-result');
+
+        function getBmiInterpretation(bmi) {
+            if (bmi < 18.5) return 'Abaixo do peso';
+            if (bmi < 24.9) return 'Peso normal';
+            if (bmi < 29.9) return 'Sobrepeso';
+            if (bmi < 34.9) return 'Obesidade Grau I';
+            if (bmi < 39.9) return 'Obesidade Grau II';
+            return 'Obesidade Grau III (Mórbida)';
+        }
+
+        function calculateBmi() {
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value);
+
+            if (isNaN(weight) || isNaN(height) || height <= 0 || weight <=0) {
+                bmiResultDiv.textContent = 'Por favor, insira valores válidos para peso e altura.';
+                return;
+            }
+
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const interpretation = getBmiInterpretation(bmi);
+
+            bmiResultDiv.innerHTML = `Seu IMC é: ${bmi.toFixed(2)}<br>Classificação: ${interpretation}`;
+        }
+
+        calculateBmiBtn.addEventListener('click', calculateBmi);
+
         // --- LÓGICA PARA NAVEGAÇÃO SUAVE ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -295,9 +343,6 @@
                 });
             });
         });
-
-        // Inicializar o conversor
-        populateUnits();
     </script>
     
 </body>
