@@ -66,15 +66,16 @@
     margin-bottom: 5px;
     font-weight: bold;
   }
-  /* Estilo para alinhar os campos de data se necessário */
   .periodo-container {
     display: flex;
     justify-content: space-between;
     gap: 10px;
   }
   .periodo-container .form-group {
-    width: 48%; /* Divide o espaço entre os dois campos */
+    width: 48%;
   }
+
+  /* --- MUDANÇAS APLICADAS AQUI --- */
   input,
   select {
     width: 100%;
@@ -82,15 +83,19 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
-    color: #333; /* Cor do texto dentro dos inputs */
+    /* Fundo branco para os campos */
+    background-color: #FFFFFF;
+    /* Cor do texto digitado para preto */
+    color: #000000;
   }
+  /* --- FIM DAS MUDANÇAS --- */
+
   input[type="date"] {
     position: relative;
   }
-  /* Melhora a aparência do calendário no Chrome/Edge */
   input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
-    filter: invert(0.5) brightness(1.2);
+    filter: invert(0.5) brightness(0.8);
   }
   button {
     width: 100%;
@@ -176,11 +181,9 @@
     const profissional = document.getElementById('profissional').value;
     const cpf = document.getElementById('cpf').value;
     
-    // Pega os valores dos campos de data
     const dataInicioValue = document.getElementById('periodo-inicio').value;
     const dataFimValue = document.getElementById('periodo-fim').value;
 
-    // Função para formatar a data de YYYY-MM-DD para DD/MM/YYYY
     const formatarData = (dataString) => {
       if (!dataString) return '';
       const [ano, mes, dia] = dataString.split('-');
@@ -190,15 +193,13 @@
     const dataInicioFormatada = formatarData(dataInicioValue);
     const dataFimFormatada = formatarData(dataFimValue);
 
-    // Junta as datas formatadas em uma única string
     let periodo = '';
     if (dataInicioFormatada && dataFimFormatada) {
       periodo = `${dataInicioFormatada} a ${dataFimFormatada}`;
     } else if (dataInicioFormatada) {
-      periodo = dataInicioFormatada; // Caso apenas a data de início seja preenchida
+      periodo = dataInicioFormatada;
     }
     
-    // Monta a descrição final
     const descricao = `Codigo: ${codigo}\nMotivo: ${motivo}\nProfissional: ${profissional}\nCPF: ${cpf}\nPeríodo: ${periodo}`;
 
     navigator.clipboard.writeText(descricao).then(() => {
