@@ -83,8 +83,8 @@
             font-size: 2.5rem;
         }
         
-        /* Estilos para o gerador Gemini */
-        #gerador-descricao {
+        /* Estilos genéricos para os geradores Gemini */
+        .gemini-generator {
             max-width: 600px;
             margin: 3rem auto;
             padding: 2rem;
@@ -94,12 +94,12 @@
             border: 1px solid #e0e0e0;
         }
 
-        #gerador-descricao h2 {
+        .gemini-generator h2 {
             color: #333;
             margin-bottom: 1.5rem;
         }
 
-        #prompt-input {
+        .gemini-generator input[type="text"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 1rem;
@@ -109,7 +109,7 @@
             box-sizing: border-box;
         }
         
-        #generate-btn {
+        .gemini-generator button {
             background: linear-gradient(45deg, #FF8C00, #FFA500);
             color: white;
             border: none;
@@ -124,12 +124,12 @@
             gap: 8px;
         }
 
-        #generate-btn:hover {
+        .gemini-generator button:hover {
             box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
             transform: translateY(-2px);
         }
         
-        #generate-btn:disabled {
+        .gemini-generator button:disabled {
             background: #ccc;
             cursor: not-allowed;
             box-shadow: none;
@@ -153,7 +153,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        #gemini-result {
+        .gemini-result {
             margin-top: 1.5rem;
             padding: 1rem;
             background-color: #f9f9f9;
@@ -185,6 +185,7 @@
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="calculadora.html">Calculadora de Datas</a></li>
         <li><a href="#gerador-descricao">Gerar Descrição</a></li>
+        <li><a href="#gerador-roteiro">Gerar Roteiro</a></li>
         <li><a href="suporte.html">Contato</a></li>
     </ul>
 </nav>
@@ -192,16 +193,26 @@
     <div class="conteudo">
         <h1>Olá :D </h1>
         <p>Bem-vindo à página inicial.</p>
-        <p>Use o menu acima para navegar pelo site ou experimente o nosso novo gerador de ideias abaixo!</p>
+        <p>Use o menu acima para navegar pelo site ou experimente os nossos novos geradores de IA abaixo!</p>
         
-        <!-- Secção do Gerador Gemini -->
-        <div id="gerador-descricao">
+        <!-- Secção do Gerador de Ideias -->
+        <div id="gerador-descricao" class="gemini-generator">
             <h2>✨ Gerador de Ideias Criativas</h2>
             <p>Insira um tópico e deixe a IA gerar uma descrição para si!</p>
             <input type="text" id="prompt-input" placeholder="Ex: Um gato astronauta">
             <button id="generate-btn">Gerar Descrição</button>
             <div class="loader" id="loader"></div>
-            <div id="gemini-result">O resultado aparecerá aqui...</div>
+            <div id="gemini-result" class="gemini-result">O resultado aparecerá aqui...</div>
+        </div>
+
+        <!-- Secção do Gerador de Roteiros -->
+        <div id="gerador-roteiro" class="gemini-generator">
+            <h2>🎬 Gerador de Roteiros para Vídeos Curtos</h2>
+            <p>Insira uma ideia e a IA criará um roteiro para o seu próximo vídeo viral!</p>
+            <input type="text" id="roteiro-prompt-input" placeholder="Ex: Como fazer o café perfeito">
+            <button id="roteiro-generate-btn">Gerar Roteiro</button>
+            <div class="loader" id="roteiro-loader"></div>
+            <div id="roteiro-result" class="gemini-result">O resultado aparecerá aqui...</div>
         </div>
     </div>
 
@@ -210,30 +221,23 @@
     </footer>
 
     <script>
-        // --- LÓGICA PARA A API GEMINI ---
-
-        const generateBtn = document.getElementById('generate-btn');
-        const promptInput = document.getElementById('prompt-input');
-        const resultDiv = document.getElementById('gemini-result');
-        const loader = document.getElementById('loader');
-
-        generateBtn.addEventListener('click', async () => {
-            const prompt = promptInput.value;
+        // --- FUNÇÃO GENÉRICA PARA CHAMAR A API ---
+        async function callGeminiApi(prompt, button, loader, resultDiv) {
             if (!prompt) {
-                resultDiv.textContent = 'Por favor, insira um tópico para gerar uma descrição.';
+                resultDiv.textContent = 'Por favor, insira um tópico para gerar um resultado.';
                 return;
             }
 
             // Desativar botão e mostrar o loader
-            generateBtn.disabled = true;
-            generateBtn.innerHTML = 'A gerar...';
+            button.disabled = true;
+            const originalButtonText = button.textContent;
+            button.innerHTML = 'A gerar...';
             loader.style.display = 'block';
             resultDiv.textContent = '';
 
             try {
                 // Monta o corpo da requisição para a API
-                const chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: `Gere uma descrição curta (2-3 frases) e criativa para o tópico: "${prompt}"` }] });
+                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
                 
                 const apiKey = "" // A chave API será injetada pelo ambiente
@@ -258,7 +262,6 @@
                     const text = result.candidates[0].content.parts[0].text;
                     resultDiv.textContent = text;
                 } else {
-                    // Trata casos onde a resposta não tem o conteúdo esperado
                     resultDiv.textContent = 'Não foi possível obter uma resposta. Tente novamente.';
                 }
 
@@ -267,10 +270,32 @@
                 resultDiv.textContent = 'Ocorreu um erro ao comunicar com a IA. Por favor, verifique a consola para mais detalhes.';
             } finally {
                 // Reativar o botão e esconder o loader
-                generateBtn.disabled = false;
-                generateBtn.innerHTML = 'Gerar Descrição';
+                button.disabled = false;
+                button.innerHTML = originalButtonText;
                 loader.style.display = 'none';
             }
+        }
+
+        // --- LÓGICA PARA O GERADOR DE DESCRIÇÃO ---
+        const generateBtn = document.getElementById('generate-btn');
+        const promptInput = document.getElementById('prompt-input');
+        const resultDiv = document.getElementById('gemini-result');
+        const loader = document.getElementById('loader');
+
+        generateBtn.addEventListener('click', () => {
+            const prompt = `Gere uma descrição curta (2-3 frases) e criativa para o tópico: "${promptInput.value}"`;
+            callGeminiApi(prompt, generateBtn, loader, resultDiv);
+        });
+
+        // --- LÓGICA PARA O GERADOR DE ROTEIROS ---
+        const roteiroGenerateBtn = document.getElementById('roteiro-generate-btn');
+        const roteiroPromptInput = document.getElementById('roteiro-prompt-input');
+        const roteiroResultDiv = document.getElementById('roteiro-result');
+        const roteiroLoader = document.getElementById('roteiro-loader');
+
+        roteiroGenerateBtn.addEventListener('click', () => {
+            const prompt = `Crie um roteiro curto para um vídeo do tipo Reels ou TikTok sobre o tema: "${roteiroPromptInput.value}". O roteiro deve incluir 3 a 4 cenas curtas com sugestões visuais e uma narração ou texto para cada cena. Formate a resposta de forma clara, separando as cenas.`;
+            callGeminiApi(prompt, roteiroGenerateBtn, roteiroLoader, roteiroResultDiv);
         });
         
         // --- LÓGICA PARA NAVEGAÇÃO SUAVE ---
