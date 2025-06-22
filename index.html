@@ -17,51 +17,51 @@
         /* Estilos gerais do corpo */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            margin: 0; /* Remove margens padrão */
-            padding: 0; /* Remove preenchimentos padrão */
-            background-color: #f0f2f5; /* Fundo mais suave */
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
             color: #333;
             line-height: 1.6;
-            display: flex; /* Adicionado para layout de rodapé fixo */
-            flex-direction: column; /* Adicionado para layout de rodapé fixo */
-            min-height: 100vh; /* Adicionado para layout de rodapé fixo */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Estilos para o menu principal */
         .menu-principal {
-            background-color: #FF8C00; /* Cor de fundo do menu */
-            padding: 10px 0;   /* Espaçamento interno (cima/baixo e laterais) */
-            text-align: center;   /* Centraliza os itens do menu */
-            width: 100%;          /* Faz o menu ocupar toda a largura */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil */
+            background-color: #FF8C00;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
         .menu-principal ul {
-            list-style-type: none; /* Remove os marcadores da lista */
+            list-style-type: none;
             margin: 0;
             padding: 0;
             overflow: hidden;
         }
 
         .menu-principal li {
-            display: inline-block;     /* Faz os itens da lista ficarem na mesma linha */
+            display: inline-block;
         }
 
         .menu-principal li a {
             display: inline-block;
             color: white;
             text-align: center;
-            padding: 14px 20px;   /* Espaçamento interno dos links */
+            padding: 14px 20px;
             text-decoration: none;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .menu-principal li a:hover {
-            background-color: #e57e00; /* Cor mais escura ao passar o mouse */
+            background-color: #e57e00;
             transform: translateY(-2px);
         }
 
@@ -74,7 +74,7 @@
         .conteudo {
             padding: 2rem 1rem;
             text-align: center;
-            flex-grow: 1; /* Para o layout de rodapé fixo */
+            flex-grow: 1;
             background-color: #ffffff;
         }
         
@@ -85,7 +85,7 @@
         
         /* Estilos genéricos para as ferramentas */
         .tool-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 3rem auto;
             padding: 2rem;
             background-color: #fff;
@@ -99,7 +99,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .tool-container input[type="number"] {
+        .tool-container input[type="number"], .tool-container select {
             width: 100%;
             padding: 12px;
             margin-bottom: 1rem;
@@ -135,15 +135,14 @@
             background-color: #f9f9f9;
             border-radius: 8px;
             border: 1px solid #eee;
-            text-align: left;
+            text-align: center;
             min-height: 50px;
-            white-space: pre-wrap; /* Preserva quebras de linha */
-            font-weight: bold;
+            white-space: pre-wrap;
             font-size: 1.1rem;
+            transition: background-color 0.5s ease;
         }
         
-        /* Estilos específicos para o conversor e calculadora */
-        .converter-row {
+        .input-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -151,30 +150,99 @@
             gap: 10px;
             margin-bottom: 1rem;
         }
-        .converter-select {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            background-color: #fff;
-            flex-grow: 1;
+        
+        /* Estilos para a nova Calculadora IMC */
+        #bmi-visual-result {
+            margin-top: 2rem;
+            display: none; /* Começa escondido */
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .converter-row span {
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bmi-value-display {
+            margin-bottom: 2rem;
+        }
+
+        .bmi-value-display span {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .bmi-value-display #bmi-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #FF8C00;
+            display: block;
+        }
+
+        .bmi-silhouettes-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bmi-category {
+            flex: 1;
+            min-width: 120px;
+            max-width: 150px;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .bmi-category svg {
+            height: 100px;
+            margin-bottom: 0.5rem;
+            transition: fill 0.3s ease;
+        }
+        
+        .bmi-category .bmi-classification {
             font-weight: bold;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .bmi-category .bmi-range {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .bmi-category .bmi-description {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.5rem;
+            display: none; /* Escondido por padrão, mostrado no ativo */
+        }
+        
+        /* Estilos para a categoria ativa */
+        .bmi-category.active {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        
+        .bmi-category.active .bmi-description {
+            display: block;
         }
         
         /* Estilos para o rodapé */
         footer {
-            background-color: #333; /* Cor de fundo escura para o rodapé */
-            color: white; /* Cor do texto branca */
-            text-align: center; /* Centraliza o texto */
-            padding: 20px 0; /* Espaçamento interno (20px em cima e embaixo, 0 nas laterais) */
-            width: 100%; /* Largura total */
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
         }
 
         footer p {
-            margin: 0; /* Remove margens padrão do parágrafo */
-            font-size: 0.9em; /* Tamanho da fonte um pouco menor */
+            margin: 0;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -191,44 +259,44 @@
     <div class="conteudo">
         <h1>Olá :D </h1>
         <p>Bem-vindo à página inicial.</p>
-        <p>Use o menu acima para navegar pelo site ou experimente as nossas ferramentas!</p>
-        
-        <!-- Secção do Conversor de Unidades -->
-        <div id="conversor-unidades" class="tool-container">
-            <h2>📏 Conversor de Unidades</h2>
-            <p>Selecione a categoria e converta facilmente entre diferentes unidades.</p>
-            
-            <div class="converter-row">
-                <select id="unit-category" class="converter-select" style="width: 100%;">
-                    <option value="length">Comprimento</option>
-                    <option value="weight">Peso</option>
-                    <option value="temperature">Temperatura</option>
-                </select>
-            </div>
-        
-            <div class="converter-row">
-                <input type="number" id="unit-input" placeholder="Insira o valor">
-                <select id="from-unit" class="converter-select"></select>
-                <span>para</span>
-                <select id="to-unit" class="converter-select"></select>
-            </div>
-        
-            <button id="convert-btn">Converter</button>
-            <div id="unit-result" class="result-box">O resultado aparecerá aqui...</div>
-        </div>
+        <p>Use o menu acima para navegar pelo site ou experimente as nossas ferramentas de saúde!</p>
 
-        <!-- Secção da Calculadora de IMC -->
         <div id="calculadora-imc" class="tool-container">
-            <h2>⚖️ Calculadora de IMC</h2>
-            <p>Insira o seu peso e altura para calcular o seu Índice de Massa Corporal.</p>
-            
-            <div class="converter-row">
-                <input type="number" id="weight-input" placeholder="Peso (em kg)">
+            <h2>⚖️ Calculadora de IMC Visual</h2>
+            <p>Insira o seu peso e altura para uma análise visual do seu Índice de Massa Corporal.</p>
+            <div class="input-row">
+                <input type="number" id="weight-input-bmi" placeholder="Peso (em kg)">
                 <input type="number" id="height-input" placeholder="Altura (em cm)">
             </div>
-        
             <button id="calculate-bmi-btn">Calcular IMC</button>
-            <div id="bmi-result" class="result-box">O resultado aparecerá aqui...</div>
+            
+            <div id="bmi-visual-result">
+                <div class="bmi-value-display">
+                    <span>Seu IMC é:</span>
+                    <strong id="bmi-value"></strong>
+                </div>
+                <div id="bmi-silhouettes-container" class="bmi-silhouettes-container">
+                    <!-- Silhuetas serão inseridas aqui via JS -->
+                </div>
+                <div id="bmi-text-result" class="result-box"></div>
+            </div>
+        </div>
+        
+        <div id="calculadora-proteina" class="tool-container">
+            <h2>🥩 Calculadora de Proteína Diária</h2>
+            <p>Estime a sua necessidade diária de proteína com base no seu peso e nível de atividade.</p>
+            <div class="input-row">
+                <input type="number" id="weight-input-protein" placeholder="Seu peso (em kg)">
+                <select id="activity-level">
+                    <option value="sedentary">Sedentário (pouco ou nenhum exercício)</option>
+                    <option value="light">Pouco Ativo (exercício leve 1-3 dias/semana)</option>
+                    <option value="moderate">Ativo (exercício moderado 3-5 dias/semana)</option>
+                    <option value="very_active">Muito Ativo (exercício intenso 6-7 dias/semana)</option>
+                    <option value="extra_active">Extremamente Ativo (trabalho físico + exercício)</option>
+                </select>
+            </div>
+            <button id="calculate-protein-btn">Calcular Proteína</button>
+            <div id="protein-result" class="result-box"></div>
         </div>
     </div>
 
@@ -237,102 +305,122 @@
     </footer>
 
     <script>
-        // --- LÓGICA PARA O CONVERSOR DE UNIDADES ---
-        const unitCategory = document.getElementById('unit-category');
-        const fromUnit = document.getElementById('from-unit');
-        const toUnit = document.getElementById('to-unit');
-        const unitInput = document.getElementById('unit-input');
-        const convertBtn = document.getElementById('convert-btn');
-        const unitResult = document.getElementById('unit-result');
-
-        const units = {
-            length: { 'Metros (m)': 1, 'Quilómetros (km)': 1000, 'Centímetros (cm)': 0.01, 'Milhas (mi)': 1609.34, 'Pés (ft)': 0.3048, 'Polegadas (in)': 0.0254, },
-            weight: { 'Quilogramas (kg)': 1, 'Gramas (g)': 0.001, 'Libras (lb)': 0.453592, 'Onças (oz)': 0.0283495, },
-            temperature: { 'Celsius (°C)': 'celsius', 'Fahrenheit (°F)': 'fahrenheit', 'Kelvin (K)': 'kelvin', }
-        };
-
-        function populateUnits() {
-            const category = unitCategory.value;
-            const unitOptions = Object.keys(units[category]);
-            fromUnit.innerHTML = '';
-            toUnit.innerHTML = '';
-            unitOptions.forEach(unit => {
-                fromUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
-                toUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
-            });
-        }
-
-        function convertUnits() {
-            const category = unitCategory.value;
-            const from = fromUnit.value;
-            const to = toUnit.value;
-            const value = parseFloat(unitInput.value);
-
-            if (isNaN(value)) {
-                unitResult.textContent = 'Por favor, insira um valor numérico válido.';
-                return;
-            }
-
-            let result;
-            if (category === 'temperature') {
-                const fromType = units.temperature[from];
-                const toType = units.temperature[to];
-                if (fromType === 'celsius') {
-                    if (toType === 'fahrenheit') result = (value * 9/5) + 32;
-                    else if (toType === 'kelvin') result = value + 273.15;
-                    else result = value;
-                } else if (fromType === 'fahrenheit') {
-                    if (toType === 'celsius') result = (value - 32) * 5/9;
-                    else if (toType === 'kelvin') result = (value - 32) * 5/9 + 273.15;
-                    else result = value;
-                } else if (fromType === 'kelvin') {
-                    if (toType === 'celsius') result = value - 273.15;
-                    else if (toType === 'fahrenheit') result = (value - 273.15) * 9/5 + 32;
-                    else result = value;
-                }
-            } else {
-                const baseValue = value * units[category][from];
-                result = baseValue / units[category][to];
-            }
-            unitResult.textContent = `${value} ${from} = ${result.toFixed(4)} ${to}`;
-        }
-
-        unitCategory.addEventListener('change', populateUnits);
-        convertBtn.addEventListener('click', convertUnits);
-        populateUnits(); // Inicializar o conversor
-
-        // --- LÓGICA PARA A CALCULADORA DE IMC ---
-        const weightInput = document.getElementById('weight-input');
+        // --- LÓGICA PARA A CALCULADORA DE IMC VISUAL ---
+        const weightInputBmi = document.getElementById('weight-input-bmi');
         const heightInput = document.getElementById('height-input');
         const calculateBmiBtn = document.getElementById('calculate-bmi-btn');
-        const bmiResultDiv = document.getElementById('bmi-result');
+        const bmiVisualResult = document.getElementById('bmi-visual-result');
+        const bmiValueEl = document.getElementById('bmi-value');
+        const silhouettesContainer = document.getElementById('bmi-silhouettes-container');
+        const bmiTextResult = document.getElementById('bmi-text-result');
 
-        function getBmiInterpretation(bmi) {
-            if (bmi < 18.5) return 'Abaixo do peso';
-            if (bmi < 24.9) return 'Peso normal';
-            if (bmi < 29.9) return 'Sobrepeso';
-            if (bmi < 34.9) return 'Obesidade Grau I';
-            if (bmi < 39.9) return 'Obesidade Grau II';
-            return 'Obesidade Grau III (Mórbida)';
+        const bmiCategories = [
+            { id: 'abaixo', rangeText: '18,5 ou menos', classification: 'Abaixo do Normal', description: 'Procure um médico. Algumas pessoas têm um baixo peso por características do seu organismo e tudo bem.', color: '#add8e6', svgPath: 'M45,14 C48,14 50,16 50,19 C50,22 48,24 45,24 C42,24 40,22 40,19 C40,16 42,14 45,14 M45,26 C45,26 55,32 55,45 L52,85 L48,150 L42,150 L38,85 L45,45 C45,32 45,26 45,26 Z' },
+            { id: 'normal', rangeText: 'Entre 18,5 e 24,9', classification: 'Normal', description: 'Que bom que você está com o peso normal! Continue com um estilo de vida ativo e alimentação equilibrada.', color: '#007bff', svgPath: 'M45,14 C48,14 50,16 50,19 C50,22 48,24 45,24 C42,24 40,22 40,19 C40,16 42,14 45,14 M48,26 C48,26 58,32 58,45 L55,85 L52,150 L38,150 L35,85 L42,45 C42,32 48,26 48,26 Z' },
+            { id: 'sobrepeso', rangeText: 'Entre 25,0 e 29,9', classification: 'Sobrepeso', description: 'Ele é, na verdade, uma pré-obesidade e muitas pessoas nessa faixa já apresentam doenças associadas, como diabetes e hipertensão.', color: '#ffc107', svgPath: 'M45,14 C49,14 52,16 52,19 C52,22 49,24 45,24 C41,24 38,22 38,19 C38,16 41,14 45,14 M50,26 C50,26 62,32 62,45 C62,55 58,85 58,85 L55,150 L35,150 L32,85 C32,85 28,55 38,45 C38,32 50,26 50,26 Z' },
+            { id: 'obesidade1', rangeText: 'Entre 30,0 e 34,9', classification: 'Obesidade Grau I', description: 'Sinal de alerta! Chegou na hora de se cuidar, mesmo que seus exames sejam normais.', color: '#fd7e14', svgPath: 'M45,14 C50,14 54,16 54,19 C54,22 50,24 45,24 C40,24 36,22 36,19 C36,16 40,14 45,14 M52,26 C52,26 66,32 66,45 C66,55 62,85 62,85 L58,150 L32,150 L28,85 C28,85 24,55 34,45 C34,32 52,26 52,26 Z' },
+            { id: 'obesidade2', rangeText: 'Entre 35,0 e 39,9', classification: 'Obesidade Grau II', description: 'Mesmo que seus exames aparentem estar normais, é hora de se cuidar, iniciando mudanças no estilo de vida.', color: '#dc3545', svgPath: 'M45,14 C51,14 55,16 55,19 C55,22 51,24 45,24 C39,24 35,22 35,19 C35,16 39,14 45,14 M54,26 C54,26 70,32 70,45 C70,55 66,85 66,85 L62,150 L28,150 L24,85 C24,85 20,55 30,45 C30,32 54,26 54,26 Z' },
+            { id: 'obesidade3', rangeText: 'Acima de 40,0', classification: 'Obesidade Grau III', description: 'Aqui o sinal é vermelho, com forte probabilidade de já existirem doenças muito graves associadas.', color: '#c82333', svgPath: 'M45,14 C52,14 56,16 56,19 C56,22 52,24 45,24 C38,24 34,22 34,19 C34,16 38,14 45,14 M56,26 C56,26 74,32 74,45 C74,55 70,85 70,85 L66,150 L24,150 L20,85 C20,85 16,55 26,45 C26,32 56,26 56,26 Z' }
+        ];
+
+        function drawSilhouettes() {
+            silhouettesContainer.innerHTML = '';
+            bmiCategories.forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'bmi-category';
+                catDiv.id = `cat-${cat.id}`;
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('viewBox', '0 0 90 160'); 
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', cat.svgPath);
+                path.style.fill = '#ced4da';
+                svg.appendChild(path);
+                catDiv.innerHTML = `${svg.outerHTML}<div class="bmi-range">${cat.rangeText}</div><div class="bmi-classification">${cat.classification}</div><div class="bmi-description">${cat.description}</div>`;
+                silhouettesContainer.appendChild(catDiv);
+            });
+        }
+        
+        function getBmiCategory(bmi) {
+            if (bmi < 18.5) return bmiCategories[0];
+            if (bmi <= 24.9) return bmiCategories[1];
+            if (bmi <= 29.9) return bmiCategories[2];
+            if (bmi <= 34.9) return bmiCategories[3];
+            if (bmi <= 39.9) return bmiCategories[4];
+            return bmiCategories[5];
         }
 
         function calculateBmi() {
-            const weight = parseFloat(weightInput.value);
+            const weight = parseFloat(weightInputBmi.value);
             const height = parseFloat(heightInput.value);
 
             if (isNaN(weight) || isNaN(height) || height <= 0 || weight <=0) {
-                bmiResultDiv.textContent = 'Por favor, insira valores válidos para peso e altura.';
+                bmiVisualResult.style.display = 'block';
+                silhouettesContainer.style.display = 'none';
+                bmiValueEl.textContent = '';
+                bmiTextResult.innerHTML = '<p>Por favor, insira valores válidos para peso e altura.</p>';
                 return;
             }
 
             const heightInMeters = height / 100;
             const bmi = weight / (heightInMeters * heightInMeters);
-            const interpretation = getBmiInterpretation(bmi);
+            const activeCategory = getBmiCategory(bmi);
+            
+            bmiVisualResult.style.display = 'block';
+            silhouettesContainer.style.display = 'flex';
+            bmiValueEl.textContent = bmi.toFixed(2);
+            
+            document.querySelectorAll('.bmi-category').forEach(el => {
+                el.classList.remove('active');
+                el.querySelector('svg path').style.fill = '#ced4da';
+            });
+            
+            const activeEl = document.getElementById(`cat-${activeCategory.id}`);
+            activeEl.classList.add('active');
+            activeEl.querySelector('svg path').style.fill = activeCategory.color;
 
-            bmiResultDiv.innerHTML = `Seu IMC é: ${bmi.toFixed(2)}<br>Classificação: ${interpretation}`;
+            const idealWeightMin = 18.5 * (heightInMeters * heightInMeters);
+            const idealWeightMax = 24.9 * (heightInMeters * heightInMeters);
+            bmiTextResult.innerHTML = `<div class="ideal-weight">Para a sua altura, a faixa de peso ideal é entre <strong>${idealWeightMin.toFixed(1)} kg</strong> e <strong>${idealWeightMax.toFixed(1)} kg</strong>.</div>`;
+        }
+        
+        drawSilhouettes(); 
+        calculateBmiBtn.addEventListener('click', calculateBmi);
+
+        // --- LÓGICA PARA A CALCULADORA DE PROTEÍNA ---
+        const weightInputProtein = document.getElementById('weight-input-protein');
+        const activityLevelSelect = document.getElementById('activity-level');
+        const calculateProteinBtn = document.getElementById('calculate-protein-btn');
+        const proteinResultDiv = document.getElementById('protein-result');
+
+        const proteinFactors = {
+            sedentary: { min: 0.8, max: 1.2 },
+            light: { min: 1.2, max: 1.4 },
+            moderate: { min: 1.4, max: 1.8 },
+            very_active: { min: 1.6, max: 2.0 },
+            extra_active: { min: 1.8, max: 2.2 }
+        };
+
+        function calculateProtein() {
+            const weight = parseFloat(weightInputProtein.value);
+            const activityLevel = activityLevelSelect.value;
+
+            if (isNaN(weight) || weight <= 0) {
+                proteinResultDiv.innerHTML = '<p>Por favor, insira um peso válido.</p>';
+                return;
+            }
+
+            const factors = proteinFactors[activityLevel];
+            const minProtein = weight * factors.min;
+            const maxProtein = weight * factors.max;
+
+            proteinResultDiv.innerHTML = 
+                `Com base no seu peso e nível de atividade, a sua necessidade diária de proteína é estimada entre:` +
+                `<br><strong>${minProtein.toFixed(1)}g e ${maxProtein.toFixed(1)}g</strong>` +
+                `<p style="font-size: 0.8em; margin-top: 1rem;">Estes valores são estimativas. Consulte um nutricionista para recomendações personalizadas.</p>`;
         }
 
-        calculateBmiBtn.addEventListener('click', calculateBmi);
+        calculateProteinBtn.addEventListener('click', calculateProtein);
+
 
         // --- LÓGICA PARA NAVEGAÇÃO SUAVE ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
