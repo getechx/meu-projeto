@@ -83,8 +83,8 @@
             font-size: 2.5rem;
         }
         
-        /* Estilos genéricos para os geradores Gemini */
-        .gemini-generator {
+        /* Estilos genéricos para as ferramentas */
+        .tool-container {
             max-width: 600px;
             margin: 3rem auto;
             padding: 2rem;
@@ -94,12 +94,12 @@
             border: 1px solid #e0e0e0;
         }
 
-        .gemini-generator h2 {
+        .tool-container h2 {
             color: #333;
             margin-bottom: 1.5rem;
         }
 
-        .gemini-generator input[type="text"] {
+        .tool-container input[type="number"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 1rem;
@@ -109,7 +109,7 @@
             box-sizing: border-box;
         }
         
-        .gemini-generator button {
+        .tool-container button {
             background: linear-gradient(45deg, #FF8C00, #FFA500);
             color: white;
             border: none;
@@ -124,36 +124,12 @@
             gap: 8px;
         }
 
-        .gemini-generator button:hover {
+        .tool-container button:hover {
             box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
             transform: translateY(-2px);
         }
         
-        .gemini-generator button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-
-        /* Animação de carregamento */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #FF8C00;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            margin: 1rem auto 0;
-            display: none; /* Começa escondido */
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .gemini-result {
+        .result-box {
             margin-top: 1.5rem;
             padding: 1rem;
             background-color: #f9f9f9;
@@ -162,6 +138,29 @@
             text-align: left;
             min-height: 50px;
             white-space: pre-wrap; /* Preserva quebras de linha */
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* Estilos específicos para o conversor */
+        .converter-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .converter-select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #fff;
+            flex-grow: 1;
+        }
+        .converter-row span {
+            font-weight: bold;
         }
         
         /* Estilos para o rodapé */
@@ -183,9 +182,7 @@
    <nav class="menu-principal">
     <ul>
         <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="calculadora.html">Calculadora de Datas</a></li>
-        <li><a href="#gerador-descricao">Gerar Descrição</a></li>
-        <li><a href="#gerador-roteiro">Gerar Roteiro</a></li>
+        <li><a href="#conversor-unidades">Converter Unidades</a></li>
         <li><a href="suporte.html">Contato</a></li>
     </ul>
 </nav>
@@ -193,26 +190,30 @@
     <div class="conteudo">
         <h1>Olá :D </h1>
         <p>Bem-vindo à página inicial.</p>
-        <p>Use o menu acima para navegar pelo site ou experimente os nossos novos geradores de IA abaixo!</p>
+        <p>Use o menu acima para navegar pelo site ou experimente a nossa ferramenta de conversão de unidades!</p>
         
-        <!-- Secção do Gerador de Ideias -->
-        <div id="gerador-descricao" class="gemini-generator">
-            <h2>✨ Gerador de Ideias Criativas</h2>
-            <p>Insira um tópico e deixe a IA gerar uma descrição para si!</p>
-            <input type="text" id="prompt-input" placeholder="Ex: Um gato astronauta">
-            <button id="generate-btn">Gerar Descrição</button>
-            <div class="loader" id="loader"></div>
-            <div id="gemini-result" class="gemini-result">O resultado aparecerá aqui...</div>
-        </div>
-
-        <!-- Secção do Gerador de Roteiros -->
-        <div id="gerador-roteiro" class="gemini-generator">
-            <h2>🎬 Gerador de Roteiros para Vídeos Curtos</h2>
-            <p>Insira uma ideia e a IA criará um roteiro para o seu próximo vídeo viral!</p>
-            <input type="text" id="roteiro-prompt-input" placeholder="Ex: Como fazer o café perfeito">
-            <button id="roteiro-generate-btn">Gerar Roteiro</button>
-            <div class="loader" id="roteiro-loader"></div>
-            <div id="roteiro-result" class="gemini-result">O resultado aparecerá aqui...</div>
+        <!-- Secção do Conversor de Unidades -->
+        <div id="conversor-unidades" class="tool-container">
+            <h2>📏 Conversor de Unidades</h2>
+            <p>Selecione a categoria e converta facilmente entre diferentes unidades.</p>
+            
+            <div class="converter-row">
+                <select id="unit-category" class="converter-select" style="width: 100%;">
+                    <option value="length">Comprimento</option>
+                    <option value="weight">Peso</option>
+                    <option value="temperature">Temperatura</option>
+                </select>
+            </div>
+        
+            <div class="converter-row">
+                <input type="number" id="unit-input" placeholder="Insira o valor">
+                <select id="from-unit" class="converter-select"></select>
+                <span>para</span>
+                <select id="to-unit" class="converter-select"></select>
+            </div>
+        
+            <button id="convert-btn">Converter</button>
+            <div id="unit-result" class="result-box">O resultado aparecerá aqui...</div>
         </div>
     </div>
 
@@ -221,82 +222,68 @@
     </footer>
 
     <script>
-        // --- FUNÇÃO GENÉRICA PARA CHAMAR A API ---
-        async function callGeminiApi(prompt, button, loader, resultDiv) {
-            if (!prompt) {
-                resultDiv.textContent = 'Por favor, insira um tópico para gerar um resultado.';
+        // --- LÓGICA PARA O CONVERSOR DE UNIDADES ---
+        const unitCategory = document.getElementById('unit-category');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const unitInput = document.getElementById('unit-input');
+        const convertBtn = document.getElementById('convert-btn');
+        const unitResult = document.getElementById('unit-result');
+
+        const units = {
+            length: { 'Metros (m)': 1, 'Quilómetros (km)': 1000, 'Centímetros (cm)': 0.01, 'Milhas (mi)': 1609.34, 'Pés (ft)': 0.3048, 'Polegadas (in)': 0.0254, },
+            weight: { 'Quilogramas (kg)': 1, 'Gramas (g)': 0.001, 'Libras (lb)': 0.453592, 'Onças (oz)': 0.0283495, },
+            temperature: { 'Celsius (°C)': 'celsius', 'Fahrenheit (°F)': 'fahrenheit', 'Kelvin (K)': 'kelvin', }
+        };
+
+        function populateUnits() {
+            const category = unitCategory.value;
+            const unitOptions = Object.keys(units[category]);
+            fromUnit.innerHTML = '';
+            toUnit.innerHTML = '';
+            unitOptions.forEach(unit => {
+                fromUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+                toUnit.innerHTML += `<option value="${unit}">${unit}</option>`;
+            });
+        }
+
+        function convertUnits() {
+            const category = unitCategory.value;
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            const value = parseFloat(unitInput.value);
+
+            if (isNaN(value)) {
+                unitResult.textContent = 'Por favor, insira um valor numérico válido.';
                 return;
             }
 
-            // Desativar botão e mostrar o loader
-            button.disabled = true;
-            const originalButtonText = button.textContent;
-            button.innerHTML = 'A gerar...';
-            loader.style.display = 'block';
-            resultDiv.textContent = '';
-
-            try {
-                // Monta o corpo da requisição para a API
-                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-                
-                const apiKey = "" // A chave API será injetada pelo ambiente
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Erro na API: ${response.statusText}`);
+            let result;
+            if (category === 'temperature') {
+                const fromType = units.temperature[from];
+                const toType = units.temperature[to];
+                if (fromType === 'celsius') {
+                    if (toType === 'fahrenheit') result = (value * 9/5) + 32;
+                    else if (toType === 'kelvin') result = value + 273.15;
+                    else result = value;
+                } else if (fromType === 'fahrenheit') {
+                    if (toType === 'celsius') result = (value - 32) * 5/9;
+                    else if (toType === 'kelvin') result = (value - 32) * 5/9 + 273.15;
+                    else result = value;
+                } else if (fromType === 'kelvin') {
+                    if (toType === 'celsius') result = value - 273.15;
+                    else if (toType === 'fahrenheit') result = (value - 273.15) * 9/5 + 32;
+                    else result = value;
                 }
-
-                const result = await response.json();
-                
-                // Extrai e exibe o texto da resposta
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    resultDiv.textContent = text;
-                } else {
-                    resultDiv.textContent = 'Não foi possível obter uma resposta. Tente novamente.';
-                }
-
-            } catch (error) {
-                console.error('Erro ao chamar a API Gemini:', error);
-                resultDiv.textContent = 'Ocorreu um erro ao comunicar com a IA. Por favor, verifique a consola para mais detalhes.';
-            } finally {
-                // Reativar o botão e esconder o loader
-                button.disabled = false;
-                button.innerHTML = originalButtonText;
-                loader.style.display = 'none';
+            } else {
+                const baseValue = value * units[category][from];
+                result = baseValue / units[category][to];
             }
+            unitResult.textContent = `${value} ${from} = ${result.toFixed(4)} ${to}`;
         }
 
-        // --- LÓGICA PARA O GERADOR DE DESCRIÇÃO ---
-        const generateBtn = document.getElementById('generate-btn');
-        const promptInput = document.getElementById('prompt-input');
-        const resultDiv = document.getElementById('gemini-result');
-        const loader = document.getElementById('loader');
-
-        generateBtn.addEventListener('click', () => {
-            const prompt = `Gere uma descrição curta (2-3 frases) e criativa para o tópico: "${promptInput.value}"`;
-            callGeminiApi(prompt, generateBtn, loader, resultDiv);
-        });
-
-        // --- LÓGICA PARA O GERADOR DE ROTEIROS ---
-        const roteiroGenerateBtn = document.getElementById('roteiro-generate-btn');
-        const roteiroPromptInput = document.getElementById('roteiro-prompt-input');
-        const roteiroResultDiv = document.getElementById('roteiro-result');
-        const roteiroLoader = document.getElementById('roteiro-loader');
-
-        roteiroGenerateBtn.addEventListener('click', () => {
-            const prompt = `Crie um roteiro curto para um vídeo do tipo Reels ou TikTok sobre o tema: "${roteiroPromptInput.value}". O roteiro deve incluir 3 a 4 cenas curtas com sugestões visuais e uma narração ou texto para cada cena. Formate a resposta de forma clara, separando as cenas.`;
-            callGeminiApi(prompt, roteiroGenerateBtn, roteiroLoader, roteiroResultDiv);
-        });
+        unitCategory.addEventListener('change', populateUnits);
+        convertBtn.addEventListener('click', convertUnits);
         
         // --- LÓGICA PARA NAVEGAÇÃO SUAVE ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -307,6 +294,9 @@
                 });
             });
         });
+
+        // Inicializar o conversor
+        populateUnits();
     </script>
     
 </body>
