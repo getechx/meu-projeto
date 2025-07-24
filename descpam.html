@@ -9,9 +9,13 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            padding: 0; /* Removido padding para a barra de navegação ocupar a largura toda */
+            padding: 0;
             background-color: #f0f2f5;
             color: #1c1e21;
+            /* Adicionado Flexbox para centralizar o conteúdo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         /* --- Menu de Navegação --- */
@@ -55,7 +59,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            margin: 0 20px 30px; /* Adicionado margem para espaçamento */
+            margin-bottom: 30px; /* Margem apenas na parte inferior */
         }
 
         /* --- Cabeçalho --- */
