@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Descrição para GitHub</title>
+    <style>
+        /* --- Estilos Gerais --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0; /* Removido padding para a barra de navegação ocupar a largura toda */
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+        
+        /* --- Menu de Navegação --- */
+        nav {
+            background-color: #24292e;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            background-color: #0366d6;
+        }
+
+
+        /* --- Container Principal --- */
+        .container {
+            width: 100%;
+            max-width: 650px;
+            padding: 24px;
+            background-color: #ffffff;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            margin: 0 20px 30px; /* Adicionado margem para espaçamento */
+        }
+
+        /* --- Cabeçalho --- */
+        h1 {
+            text-align: center;
+            border-bottom: 1px solid #dddfe2;
+            padding-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #0366d6;
+        }
+
+        /* --- Grupos de Formulário --- */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+            outline: none;
+        }
+        
+        /* --- Agrupamento do Período --- */
+        .periodo-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .periodo-group .form-group {
+            flex-grow: 1;
+            margin-bottom: 0;
+        }
+        .periodo-group span {
+            margin-top: 20px; /* Alinha com os inputs */
+        }
+
+        /* --- Botões --- */
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #btnGerar {
+            background-color: #2ea44f;
+            color: white;
+            border: 1px solid #2c974b;
+        }
+        #btnGerar:hover {
+            background-color: #2c974b;
+        }
+
+        #btnCopiar {
+            background-color: #0366d6;
+            color: white;
+            border: 1px solid #0366d6;
+        }
+         #btnCopiar:hover {
+            background-color: #005cc5;
+        }
+
+        /* --- Área de Texto da Descrição --- */
+        textarea {
+            width: 100%;
+            height: 180px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            background-color: #f6f8fa;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            resize: vertical;
+        }
+        
+        /* --- Notificação de Cópia --- */
+        .notification {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            color: white;
+            background-color: #2ea44f;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="calculadora.html">Calculadora</a></li>
+            <li><a href="descricao.html" class="active">Descrição</a></li>
+            <li><a href="suporte.html">Contato</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>Gerador de Descrição</h1>
+
+        <div class="form-group">
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" name="codigo" placeholder="Ex: TASK-123">
+        </div>
+
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
+                <option selected>Bloqueio de Agenda</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="motivo">Motivo:</label>
+            <select id="motivo" name="motivo">
+                <option>Férias</option>
+                <option>Licença Prêmio</option>
+                <option>Atestado Médico</option>
+                <option>Agenda Duplicada</option>
+                <option>Capacitação</option>
+                <option>Licença Maternidade</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="profissional">Nome do Profissional:</label>
+            <input type="text" id="profissional" name="profissional" placeholder="Digite o nome completo">
+        </div>
+
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00">
+        </div>
+
+        <div class="periodo-group">
+            <div class="form-group">
+                <label for="periodoDe">Período de:</label>
+                <input type="date" id="periodoDe" name="periodoDe">
+            </div>
+            <span>até</span>
+            <div class="form-group">
+                <label for="periodoAte" style="visibility: hidden;">Até:</label> <!-- Label oculto para alinhamento -->
+                <input type="date" id="periodoAte" name="periodoAte">
+            </div>
+        </div>
+
+        <div class="botoes">
+            <button id="btnGerar" onclick="gerarDescricao()">Gerar Descrição</button>
+            <button id="btnCopiar" onclick="copiarDescricao()">Copiar</button>
+        </div>
+
+        <textarea id="descricaoGerada" readonly placeholder="A sua descrição formatada aparecerá aqui..."></textarea>
+        
+        <div id="notification" class="notification">Descrição copiada com sucesso!</div>
+    </div>
+
+    <script>
+        /**
+         * Formata uma data do padrão AAAA-MM-DD para DD/MM/AAAA.
+         * @param {string} dataString - A data no formato de input (AAAA-MM-DD).
+         * @returns {string} A data formatada ou uma string vazia se a entrada for inválida.
+         */
+        function formatarData(dataString) {
+            if (!dataString) return '';
+            const [ano, mes, dia] = dataString.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        /**
+         * Pega os valores do formulário e gera a descrição formatada.
+         */
+        function gerarDescricao() {
+            // Coleta os valores dos campos do formulário
+            const codigo = document.getElementById('codigo').value;
+            const motivo = document.getElementById('motivo').value;
+            const profissional = document.getElementById('profissional').value;
+            const cpf = document.getElementById('cpf').value;
+            const periodoDe = formatarData(document.getElementById('periodoDe').value);
+            const periodoAte = formatarData(document.getElementById('periodoAte').value);
+
+            // Monta a descrição com a formatação Markdown e a ordem especificada
+            const descricao = `**Codigo:** ${codigo}\n` +
+                              `**Motivo:** ${motivo}\n\n` +
+                              `**Profissional:** ${profissional}\n` +
+                              `**CPF:** ${cpf}\n\n` +
+                              `**Período:** ${periodoDe} até ${periodoAte}`;
+
+            // Exibe a descrição na área de texto
+            document.getElementById('descricaoGerada').value = descricao;
+        }
+
+        /**
+         * Copia o conteúdo da área de texto para a área de transferência.
+         */
+        function copiarDescricao() {
+            const textarea = document.getElementById('descricaoGerada');
+            const notification = document.getElementById('notification');
+
+            // Verifica se há texto para copiar
+            if (textarea.value) {
+                // Usa a API do Clipboard para copiar o texto
+                navigator.clipboard.writeText(textarea.value).then(() => {
+                    // Mostra a notificação de sucesso
+                    notification.style.display = 'block';
+                    // Esconde a notificação após 2 segundos
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 2000);
+                }).catch(err => {
+                    // Em caso de erro, exibe um alerta e loga o erro no console
+                    alert('Erro ao copiar a descrição.');
+                    console.error('Falha ao copiar texto: ', err);
+                });
+            } else {
+                // Alerta o usuário se não houver descrição para copiar
+                alert('Primeiro, gere uma descrição para poder copiar.');
+            }
+        }
+    </script>
+
+</body>
+</html>
