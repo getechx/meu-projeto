@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Escala Semanal</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* Estilo do Formulário */
+        .input-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        input { flex: 2; min-width: 200px; }
+        select { flex: 1; min-width: 150px; }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover { background-color: #1d4ed8; }
+
+        /* Estilo das Colunas (Grid) */
+        .week-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .day-column {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .prof-list {
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+            flex-grow: 1;
+            min-height: 100px;
+        }
+
+        .prof-item {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .delete-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover { background-color: #dc2626; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Escala de Profissionais</h1>
+
+    <div class="input-section">
+        <input type="text" id="profName" placeholder="Nome do Profissional" required>
+        <select id="daySelect">
+            <option value="segunda">Segunda-feira</option>
+            <option value="terca">Terça-feira</option>
+            <option value="quarta">Quarta-feira</option>
+            <option value="quinta">Quinta-feira</option>
+            <option value="sexta">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+        </select>
+        <button onclick="addProfessional()">Adicionar</button>
+    </div>
+
+    <div class="week-container">
+        <div class="day-column">
+            <div class="day-header">Segunda-feira</div>
+            <ul class="prof-list" id="list-segunda"></ul>
+        </div>
+        <div class="day-column">
+            <div class="day-header">Terça-feira</div>
+            <ul class="prof-list" id="list-terca"></ul>
+        </div>
+        <div class="day-column">
+            <div class="day-header">Quarta-feira</div>
+            <ul class="prof-list" id="list-quarta"></ul>
+        </div>
+        <div class="day-column">
+            <div class="day-header">Quinta-feira</div>
+            <ul class="prof-list" id="list-quinta"></ul>
+        </div>
+        <div class="day-column">
+            <div class="day-header">Sexta-feira</div>
+            <ul class="prof-list" id="list-sexta"></ul>
+        </div>
+        <div class="day-column">
+            <div class="day-header">Sábado</div>
+            <ul class="prof-list" id="list-sabado"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Função executada ao carregar a página para recuperar dados salvos
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        function addProfessional() {
+            const nameInput = document.getElementById('profName');
+            const daySelect = document.getElementById('daySelect');
+            
+            const name = nameInput.value.trim();
+            const day = daySelect.value;
+
+            if (name === "") {
+                alert("Por favor, digite o nome do profissional.");
+                return;
+            }
+
+            // Cria o objeto de dados
+            const professionalData = {
+                id: Date.now(), // ID único baseado no tempo
+                name: name,
+                day: day
+            };
+
+            // Salva no LocalStorage
+            saveToLocalStorage(professionalData);
+
+            // Renderiza na tela
+            renderItem(professionalData);
+
+            // Limpa o campo de nome e foca nele novamente
+            nameInput.value = "";
+            nameInput.focus();
+        }
+
+        function renderItem(data) {
+            const listId = `list-${data.day}`;
+            const listElement = document.getElementById(listId);
+
+            const li = document.createElement('li');
+            li.className = 'prof-item';
+            li.setAttribute('data-id', data.id);
+            
+            li.innerHTML = `
+                <span>${data.name}</span>
+                <button class="delete-btn" onclick="removeItem(${data.id}, '${data.day}')">X</button>
+            `;
+
+            listElement.appendChild(li);
+        }
+
+        function saveToLocalStorage(data) {
+            let schedule = JSON.parse(localStorage.getItem('scheduleData')) || [];
+            schedule.push(data);
+            localStorage.setItem('scheduleData', JSON.stringify(schedule));
+        }
+
+        function loadData() {
+            let schedule = JSON.parse(localStorage.getItem('scheduleData')) || [];
+            schedule.forEach(item => {
+                renderItem(item);
+            });
+        }
+
+        function removeItem(id, day) {
+            // Remove da tela
+            const itemToRemove = document.querySelector(`li[data-id="${id}"]`);
+            if (itemToRemove) {
+                itemToRemove.remove();
+            }
+
+            // Remove do LocalStorage
+            let schedule = JSON.parse(localStorage.getItem('scheduleData')) || [];
+            schedule = schedule.filter(item => item.id !== id);
+            localStorage.setItem('scheduleData', JSON.stringify(schedule));
+        }
+
+        // Permite adicionar apertando ENTER
+        document.getElementById("profName").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                addProfessional();
+            }
+        });
+    </script>
+</body>
+</html>
